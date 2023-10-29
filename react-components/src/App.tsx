@@ -1,7 +1,13 @@
+import { Component, ReactNode } from 'react';
 import './App.css';
+import Input from './components/input';
 
-function App() {
-  return <h1>Hello</h1>;
+export default class App extends Component {
+  render(): ReactNode {
+    return (
+      <div>
+        <Input />
+      </div>
+    );
+  }
 }
-
-export default App;
