@@ -1,0 +1,10 @@
+.item {
+  border: solid 3px black;
+  text-align: left;
+  padding: 5px;
+  width: max-content;
+}
+
+.item__props-list {
+  list-style-position: inside;
+}

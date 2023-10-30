@@ -38,6 +38,14 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'import/no-unresolved': 'error',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
+    '@typescript-eslint/naming-convention': [
+      'error',
+      {
+        selector: 'variable',
+        format: null,
+        leadingUnderscore: 'forbid',
+      },
+    ],
   },
   settings: {
     react: {
