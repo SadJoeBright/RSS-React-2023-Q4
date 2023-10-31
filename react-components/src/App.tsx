@@ -6,12 +6,20 @@ import ErrorBoundary from './components/errorBoundary/errorBounadary';
 import ErrorButton from './components/errorBoundary/errorButton';
 
 export default class App extends Component {
+  state = {
+    searchResponse: [],
+  };
+
+  public setSearchResponse = (response: object[]) => {
+    this.setState({ searchResponse: response });
+  };
+
   render(): ReactNode {
     return (
       <ErrorBoundary>
         <ErrorButton />
-        <Input />
-        <Results />
+        <Input updateResults={this.setSearchResponse} />
+        <Results results={this.state.searchResponse} />
       </ErrorBoundary>
     );
   }

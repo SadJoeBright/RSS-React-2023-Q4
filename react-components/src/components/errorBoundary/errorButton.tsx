@@ -1,6 +1,6 @@
 import { Component, ReactNode } from 'react';
 
-export default class ErrorBut extends Component {
+export default class ErrorButton extends Component {
   state = { hasError: false };
 
   throwError = () => {

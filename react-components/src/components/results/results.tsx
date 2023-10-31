@@ -1,20 +1,34 @@
 import { Component, ReactNode } from 'react';
 import Item from '../../item/item';
 import './results.css';
+import IItem from '../../types';
 
-export default class Resaults extends Component {
+interface SearchProps {
+  results: IItem[];
+}
+
+export default class Results extends Component<SearchProps> {
   render(): ReactNode {
+    const { results } = this.props;
+
     return (
       <section className="results">
-        <Item
-          name="New Ship"
-          model="Model"
-          starship_class="Starship Class"
-          max_atmosphering_speed="Max Atmosphering Speed"
-          length="150"
-          manufacturer="Manufacturer"
-          cost_in_credits="10000"
-        />
+        {results.length > 0 ? (
+          results.map((el) => (
+            <Item
+              key={el.name}
+              name={el.name}
+              model={el.model}
+              starship_class={el.starship_class}
+              max_atmosphering_speed={el.max_atmosphering_speed}
+              length={el.length}
+              manufacturer={el.manufacturer}
+              cost_in_credits={el.cost_in_credits}
+            />
+          ))
+        ) : (
+          <p>No results</p>
+        )}
       </section>
     );
   }
