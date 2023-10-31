@@ -3,11 +3,13 @@ import { Component, ReactNode } from 'react';
 export default class Input extends Component {
   // eslint-disable-next-line class-methods-use-this
   async getData() {
-    const response = await fetch('https://swapi.dev/api/starships/?search=');
+    const response = await fetch(
+      `https://swapi.dev/api/starships/?search=Executor`
+    );
     const data = await response.json();
     // const { results } = data;
     // eslint-disable-next-line no-console
-    console.log(data);
+    console.log(data.results);
     // return results;
   }
 

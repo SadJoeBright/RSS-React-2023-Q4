@@ -21,6 +21,7 @@ module.exports = {
   },
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'import'],
   rules: {
+    'no-console': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prefer-stateless-function': 'off',
@@ -36,6 +37,8 @@ module.exports = {
     '@typescript-eslint/no-var-requires': 'off',
     'react/jsx-uses-react': 'off',
     'react/react-in-jsx-scope': 'off',
+    'react/state-in-constructor': 'off',
+    'react/destructuring-assignment': 'off',
     'import/no-unresolved': 'error',
     'import/no-extraneous-dependencies': ['error', { devDependencies: true }],
     '@typescript-eslint/naming-convention': [
