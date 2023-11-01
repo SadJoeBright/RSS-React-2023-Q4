@@ -1,25 +1,26 @@
 import { Component, ReactNode } from 'react';
 import './App.css';
-import Input from './components/input';
+import Input from './components/input/input';
 import Results from './components/results/results';
 import ErrorBoundary from './components/errorBoundary/errorBounadary';
 import ErrorButton from './components/errorBoundary/errorButton';
+import { IResults } from './types/types';
 
 export default class App extends Component {
   state = {
-    searchResponse: [],
+    results: [],
   };
 
-  public setSearchResponse = (response: object[]) => {
-    this.setState({ searchResponse: response });
+  public updateResults = (results: IResults) => {
+    this.setState({ results });
   };
 
   render(): ReactNode {
     return (
       <ErrorBoundary>
         <ErrorButton />
-        <Input updateResults={this.setSearchResponse} />
-        <Results results={this.state.searchResponse} />
+        <Input updateResults={this.updateResults} />
+        <Results results={this.state.results} />
       </ErrorBoundary>
     );
   }

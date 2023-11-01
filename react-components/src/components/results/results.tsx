@@ -1,13 +1,9 @@
 import { Component, ReactNode } from 'react';
-import Item from '../../item/item';
+import Item from '../item/item';
 import './results.css';
-import IItem from '../../types';
+import { IResults } from '../../types/types';
 
-interface SearchProps {
-  results: IItem[];
-}
-
-export default class Results extends Component<SearchProps> {
+export default class Results extends Component<IResults> {
   render(): ReactNode {
     const { results } = this.props;
 
