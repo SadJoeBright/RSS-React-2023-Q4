@@ -22,7 +22,6 @@ module.exports = {
   plugins: ['react', 'react-hooks', '@typescript-eslint', 'import'],
   rules: {
     'no-console': 'off',
-    'class-methods-use-this': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
     'react/prefer-stateless-function': 'off',

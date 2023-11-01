@@ -1,6 +1,7 @@
 import { ChangeEvent, Component, ReactNode } from 'react';
 import { ColorRing } from 'react-loader-spinner';
 import { IData, IInputState, ISearchProps } from '../../types/types';
+import './input.css';
 
 export default class Input extends Component<ISearchProps, IInputState> {
   private updateResults = this.props.updateResults;
@@ -22,6 +23,12 @@ export default class Input extends Component<ISearchProps, IInputState> {
     window.localStorage.setItem('searchValue', event.target.value);
   };
 
+  private handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    if (event.key === 'Enter') {
+      this.getData(this.state.searchValue);
+    }
+  };
+
   private getData = async (searchValue: string) => {
     this.setState({ isLoading: true });
     const url: string = `https://swapi.dev/api/starships/${
@@ -29,7 +36,6 @@ export default class Input extends Component<ISearchProps, IInputState> {
     }`;
     const response = await fetch(url);
     const data: IData = await response.json();
-    console.log(data);
     this.updateResults(data.results);
     this.setState({ isLoading: false });
   };
@@ -38,10 +44,12 @@ export default class Input extends Component<ISearchProps, IInputState> {
     return (
       <>
         <input
+          className="input"
           type="text"
           placeholder="Enter starship's name"
           value={this.state.searchValue}
           onChange={this.handleInputChange}
+          onKeyDown={this.handleKeyDown}
         />
 
         <button
