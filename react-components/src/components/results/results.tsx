@@ -10,16 +10,16 @@ export default class Results extends Component<IResults> {
     return (
       <section className="results">
         {results.length > 0 ? (
-          results.map((el) => (
+          results.map((item) => (
             <Item
-              key={el.name}
-              name={el.name}
-              model={el.model}
-              starship_class={el.starship_class}
-              max_atmosphering_speed={el.max_atmosphering_speed}
-              length={el.length}
-              manufacturer={el.manufacturer}
-              cost_in_credits={el.cost_in_credits}
+              key={item.name}
+              name={item.name}
+              model={item.model}
+              starship_class={item.starship_class}
+              max_atmosphering_speed={item.max_atmosphering_speed}
+              length={item.length}
+              manufacturer={item.manufacturer}
+              cost_in_credits={item.cost_in_credits}
             />
           ))
         ) : (

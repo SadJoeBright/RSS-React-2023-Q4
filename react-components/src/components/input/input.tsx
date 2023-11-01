@@ -14,22 +14,24 @@ export default class Input extends Component<ISearchProps, IInputState> {
     };
   }
 
-  componentDidMount() {
+  componentDidMount(): void {
     this.getData(this.state.searchValue);
   }
 
-  private handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  private handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
     this.setState({ searchValue: event.target.value });
     window.localStorage.setItem('searchValue', event.target.value);
   };
 
-  private handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+  private handleKeyDown = (
+    event: React.KeyboardEvent<HTMLInputElement>
+  ): void => {
     if (event.key === 'Enter') {
       this.getData(this.state.searchValue);
     }
   };
 
-  private getData = async (searchValue: string) => {
+  private getData = async (searchValue: string): Promise<void> => {
     this.setState({ isLoading: true });
     const url: string = `https://swapi.dev/api/starships/${
       searchValue ? `?search=${searchValue}` : ''

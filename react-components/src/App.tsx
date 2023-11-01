@@ -11,7 +11,7 @@ export default class App extends Component {
     results: [],
   };
 
-  public updateResults = (results: IResults) => {
+  public updateResults = (results: IResults): void => {
     this.setState({ results });
   };
 

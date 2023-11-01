@@ -3,7 +3,7 @@ import { Component, ReactNode } from 'react';
 export default class ErrorButton extends Component {
   state = { hasError: false };
 
-  throwError = () => {
+  throwError = (): void => {
     this.setState({ hasError: true });
   };
 
