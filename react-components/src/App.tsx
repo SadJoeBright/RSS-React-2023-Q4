@@ -1,27 +1,25 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 import './App.css';
 import Input from './components/input/input';
 import Results from './components/results/results';
 import ErrorBoundary from './components/errorBoundary/errorBounadary';
 import ErrorButton from './components/errorBoundary/errorButton';
-import { IResults } from './types/types';
+import { IItem } from './types/types';
 
-export default class App extends Component {
-  state = {
-    results: [],
+function App() {
+  const [results, setResults] = useState<IItem[]>([]);
+
+  const updateResults = (newResults: IItem[]) => {
+    setResults(newResults);
   };
 
-  public updateResults = (results: IResults): void => {
-    this.setState({ results });
-  };
-
-  render(): ReactNode {
-    return (
-      <ErrorBoundary>
-        <ErrorButton />
-        <Input updateResults={this.updateResults} />
-        <Results results={this.state.results} />
-      </ErrorBoundary>
-    );
-  }
+  return (
+    <ErrorBoundary>
+      <ErrorButton />
+      <Input updateResults={updateResults} />
+      <Results results={results} />
+    </ErrorBoundary>
+  );
 }
+
+export default App;

@@ -23,7 +23,7 @@ module.exports = {
   rules: {
     'no-console': 'off',
     'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
+    'react-hooks/exhaustive-deps': 'off',
     'react/prefer-stateless-function': 'off',
     'comma-dangle': ['error', 'only-multiline'],
     'react/prop-types': 'off',

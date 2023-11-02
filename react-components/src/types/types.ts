@@ -2,9 +2,8 @@ export interface IData {
   count: number;
   next: string | null;
   previous: string | null;
-  results: IResults;
+  results: IItem[];
 }
-
 export interface IItem {
   name: string;
   model: string;
@@ -14,15 +13,6 @@ export interface IItem {
   length: string;
   cost_in_credits: string;
 }
-
-export interface IResults {
-  results: IItem[];
-}
-
-export interface ISearchProps {
-  updateResults: (results: IResults) => void;
-}
-
 export interface IInputState {
   searchValue: string;
   isLoading: boolean;
