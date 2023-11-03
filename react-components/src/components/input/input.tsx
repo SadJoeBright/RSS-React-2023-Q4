@@ -1,10 +1,10 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { ColorRing } from 'react-loader-spinner';
-import { IData, IItem } from '../../types/types';
+import { Data, Product } from '../../types/types';
 import './input.css';
 
 interface InputProps {
-  updateResults: (results: IItem[]) => void;
+  updateResults: (results: Product[]) => void;
 }
 
 export default function Input({ updateResults }: InputProps) {
@@ -22,12 +22,13 @@ export default function Input({ updateResults }: InputProps) {
 
   async function getData(value: string): Promise<void> {
     setLoadingState(true);
-    const url = `https://swapi.dev/api/starships/${
-      value ? `?search=${value}` : ''
+    const url = `https://dummyjson.com/products/${
+      value ? `search?q=${value}` : ''
     }`;
     const response = await fetch(url);
-    const data: IData = await response.json();
-    updateResults(data.results);
+    const data: Data = await response.json();
+    console.log(data);
+    updateResults(data.products);
     setLoadingState(false);
   }
 

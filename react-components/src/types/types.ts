@@ -1,19 +1,13 @@
-export interface IData {
-  count: number;
-  next: string | null;
-  previous: string | null;
-  results: IItem[];
+export interface Data {
+  limit: number;
+  products: Product[];
+  skip: number;
+  total: number;
 }
-export interface IItem {
-  name: string;
-  model: string;
-  starship_class: string;
-  manufacturer: string;
-  max_atmosphering_speed: string;
-  length: string;
-  cost_in_credits: string;
-}
-export interface IInputState {
-  searchValue: string;
-  isLoading: boolean;
+export interface Product {
+  title: string;
+  description: string;
+  brand: string;
+  category: string;
+  images: string[];
 }

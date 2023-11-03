@@ -4,12 +4,12 @@ import Input from './components/input/input';
 import Results from './components/results/results';
 import ErrorBoundary from './components/errorBoundary/errorBounadary';
 import ErrorButton from './components/errorBoundary/errorButton';
-import { IItem } from './types/types';
+import { Product } from './types/types';
 
 function App() {
-  const [results, setResults] = useState<IItem[]>([]);
+  const [results, setResults] = useState<Product[]>([]);
 
-  const updateResults = (newResults: IItem[]) => {
+  const updateResults = (newResults: Product[]) => {
     setResults(newResults);
   };
 
