@@ -1,5 +1,5 @@
 import { Product } from '../../types/types';
-import './item.css';
+import './ProductCard.css';
 
 export default function ProductCard(props: Product) {
   const { title, description, brand, category, images } = props;

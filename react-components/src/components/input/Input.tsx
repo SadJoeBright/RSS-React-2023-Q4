@@ -5,9 +5,15 @@ import './input.css';
 
 interface InputProps {
   updateResults: (results: Product[]) => void;
+  currentPage: number;
+  itemsPerPage: number;
 }
 
-export default function Input({ updateResults }: InputProps) {
+export default function Input({
+  updateResults,
+  currentPage,
+  itemsPerPage,
+}: InputProps) {
   const [searchValue, setSearchValue] = useState(
     window.localStorage.getItem('searchValue') || ''
   );
@@ -22,12 +28,12 @@ export default function Input({ updateResults }: InputProps) {
 
   async function getData(value: string): Promise<void> {
     setLoadingState(true);
-    const url = `https://dummyjson.com/products/${
-      value ? `search?q=${value}` : ''
-    }`;
+    const url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${
+      (currentPage - 1) * itemsPerPage
+    }${value ? `search?q=${value}` : ''}`;
+
     const response = await fetch(url);
     const data: Data = await response.json();
-    console.log(data);
     updateResults(data.products);
     setLoadingState(false);
   }
@@ -40,7 +46,7 @@ export default function Input({ updateResults }: InputProps) {
 
   useEffect(() => {
     getData(searchValue);
-  }, []);
+  }, [currentPage, itemsPerPage]);
 
   return (
     <>

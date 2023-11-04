@@ -1,24 +1,19 @@
-import { Component, ReactNode } from 'react';
+import { useState } from 'react';
 
-export default class ErrorButton extends Component {
-  state = { hasError: false };
+export default function ErrorButton() {
+  const [hasError, setErrorState] = useState(false);
 
-  throwError = (): void => {
-    this.setState({ hasError: true });
-  };
-
-  render(): ReactNode {
-    if (this.state.hasError) {
-      throw new Error('Generated Error');
-    }
-    return (
-      <button
-        type="button"
-        className="error-generator"
-        onClick={this.throwError}
-      >
-        Throw Error
-      </button>
-    );
+  if (hasError) {
+    throw new Error('Generated Error');
   }
+
+  return (
+    <button
+      type="button"
+      className="error-generator"
+      onClick={() => setErrorState(true)}
+    >
+      Throw Error
+    </button>
+  );
 }

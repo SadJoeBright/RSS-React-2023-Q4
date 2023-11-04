@@ -1,12 +1,12 @@
-import ProductCard from '../item/productCard';
-import './results.css';
+import ProductCard from '../ProductCard/ProductCard';
+import './ProductList.css';
 import { Product } from '../../types/types';
 
 interface ResultsProps {
   results: Product[];
 }
 
-export default function Results({ results }: ResultsProps) {
+export default function ProductList({ results }: ResultsProps) {
   return (
     <section className="results">
       {results?.length ? (
