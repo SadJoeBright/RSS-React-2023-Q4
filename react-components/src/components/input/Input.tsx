@@ -1,16 +1,16 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { ColorRing } from 'react-loader-spinner';
-import { Data, Product } from '../../types/types';
+import { Data } from '../../types/types';
 import './input.css';
 
 interface InputProps {
-  updateResults: (results: Product[]) => void;
+  updateData: (data: Data) => void;
   currentPage: number;
   itemsPerPage: number;
 }
 
 export default function Input({
-  updateResults,
+  updateData,
   currentPage,
   itemsPerPage,
 }: InputProps) {
@@ -34,7 +34,8 @@ export default function Input({
 
     const response = await fetch(url);
     const data: Data = await response.json();
-    updateResults(data.products);
+    updateData(data);
+    console.log(data);
     setLoadingState(false);
   }
 

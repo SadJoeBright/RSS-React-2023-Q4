@@ -1,8 +1,8 @@
 // import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 import ErrorButton from './components/ErrorBoundary/errorButton';
-import { Product } from './types/types';
+import { Data, Product } from './types/types';
 import Pagination from './components/Pagination/Pagination';
 import ProductList from './components/Results/ProductList';
 import Input from './components/input/Input';
@@ -12,10 +12,16 @@ function App() {
   const [results, setResults] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
+  const [itemsTotalCount, setItemsTotalCount] = useState(0);
 
-  const updateResults = (newResults: Product[]) => {
-    setResults(newResults);
+  const updateData = (data: Data) => {
+    setResults(data.products);
+    setItemsTotalCount(data.total);
   };
+
+  useEffect(() => {
+    setCurrentPage(Math.ceil(itemsTotalCount / itemsPerPage));
+  }, [itemsTotalCount, itemsPerPage]);
 
   const toTheFirstPage = () => {
     setCurrentPage(1);
@@ -28,13 +34,13 @@ function App() {
   };
 
   const toTheNextPage = () => {
-    if (currentPage < 100 / itemsPerPage) {
+    if (currentPage < itemsTotalCount / itemsPerPage) {
       setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
-    setCurrentPage(100 / itemsPerPage);
+    setCurrentPage(Math.ceil(itemsTotalCount / itemsPerPage));
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -42,12 +48,16 @@ function App() {
     setItemsPerPage(selectedValue);
   };
 
+  console.log('Items total count:', itemsTotalCount);
+  console.log('Items per page:', itemsPerPage);
+  console.log('Current page:', currentPage);
+
   return (
     // <BrowserRouter>
     <>
       <ErrorButton />
       <Input
-        updateResults={updateResults}
+        updateData={updateData}
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
       />
