@@ -28,9 +28,9 @@ export default function Input({
 
   async function getData(value: string): Promise<void> {
     setLoadingState(true);
-    const url = `https://dummyjson.com/products?limit=${itemsPerPage}&skip=${
+    const url = `https://dummyjson.com/products/search?q=${value}&limit=${itemsPerPage}&skip=${
       (currentPage - 1) * itemsPerPage
-    }${value ? `search?q=${value}` : ''}`;
+    }`;
 
     const response = await fetch(url);
     const data: Data = await response.json();

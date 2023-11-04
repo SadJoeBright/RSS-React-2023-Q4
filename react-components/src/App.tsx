@@ -5,7 +5,7 @@ import ErrorButton from './components/ErrorBoundary/errorButton';
 import { Product } from './types/types';
 import Pagination from './components/Pagination/Pagination';
 import ProductList from './components/Results/ProductList';
-import Input from './components/input/input';
+import Input from './components/input/Input';
 import ItemsAmount from './components/itemsAmount/itemsAmount';
 
 function App() {
