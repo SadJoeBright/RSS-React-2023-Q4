@@ -1,4 +1,4 @@
-import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
+import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 import ErrorButton from './components/ErrorBoundary/errorButton';
@@ -25,9 +25,16 @@ function App() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setCurrentPage(Math.ceil(itemsTotalCount / itemsPerPage));
-    navigate(`products/${currentPage}`);
+    setCurrentPage(1);
+    navigate(`products/page=${currentPage}`);
   }, [itemsTotalCount, itemsPerPage]);
+
+  useEffect(() => {
+    const pathSegments = window.location.pathname.split('/');
+    const currentPageSegment = pathSegments[pathSegments.length - 1];
+    const newPage = parseInt(currentPageSegment.replace('page=', ''), 10);
+    setCurrentPage(newPage);
+  }, [window.location.pathname]);
 
   const toTheFirstPage = () => {
     setCurrentPage(1);
@@ -93,7 +100,6 @@ function App() {
           handleSelectChange={handleSelectChange}
         />
       </header>
-      {/* <BrowserRouter> */}
       <main>
         <Routes>
           <Route
@@ -106,15 +112,11 @@ function App() {
               />
             }
           />
-          <Route
-            path="/products/details/:id"
-            element={<ProductDetails clickHandler={showDetails} id={cardID} />}
-          />
-          <Route index element={<Navigate to="products/page=:currentPage" />} />
         </Routes>
-        <Outlet />
+        {isDetailsVisible && (
+          <ProductDetails clickHandler={showDetails} id={cardID} />
+        )}
       </main>
-      {/* </BrowserRouter> */}
 
       {/* <main> */}
       {/* <ProductList
