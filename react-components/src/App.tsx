@@ -7,13 +7,15 @@ import Pagination from './components/Pagination/Pagination';
 import ProductList from './components/Results/ProductList';
 import Input from './components/input/Input';
 import ItemsAmount from './components/itemsAmount/itemsAmount';
+import ProductDetails from './components/ProductDetails/ProductDetails';
 
 function App() {
   const [results, setResults] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [itemsTotalCount, setItemsTotalCount] = useState(0);
-  // const [isDetailsVisible, setDetailsVisibility] = useState(false);
+  const [isDetailsVisible, setDetailsVisibility] = useState(false);
+  const [cardID, setCardID] = useState(0);
 
   const updateData = (data: Data) => {
     setResults(data.products);
@@ -49,9 +51,13 @@ function App() {
     setItemsPerPage(selectedValue);
   };
 
-  // const showDetails = () => {
-  //   setDetailsVisibility(true);
-  // };
+  const setID = (id: number) => {
+    setCardID(id);
+  };
+
+  const showDetails = () => {
+    setDetailsVisibility(!isDetailsVisible);
+  };
 
   return (
     // <BrowserRouter>
@@ -74,7 +80,14 @@ function App() {
         handleSelectChange={handleSelectChange}
       />
       <main>
-        <ProductList products={results} />
+        <ProductList
+          products={results}
+          clickHandler={showDetails}
+          setID={setID}
+        />
+        {isDetailsVisible && (
+          <ProductDetails clickHandler={showDetails} id={cardID} />
+        )}
       </main>
     </>
     // </BrowserRouter>

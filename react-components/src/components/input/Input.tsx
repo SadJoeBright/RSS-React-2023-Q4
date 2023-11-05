@@ -35,7 +35,6 @@ export default function Input({
     const response = await fetch(url);
     const data: Data = await response.json();
     updateData(data);
-    console.log(data);
     setLoadingState(false);
   }
 
