@@ -53,7 +53,6 @@ export default function Input({
       <input
         className="input"
         type="text"
-        placeholder="Enter starship's name"
         value={searchValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}

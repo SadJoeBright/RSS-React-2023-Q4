@@ -1,4 +1,4 @@
-// import { BrowserRouter, Route, Routes, Link } from 'react-router-dom';
+import { Routes, Route, Navigate, Outlet, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
 import ErrorButton from './components/ErrorBoundary/errorButton';
@@ -22,28 +22,39 @@ function App() {
     setItemsTotalCount(data.total);
   };
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setCurrentPage(Math.ceil(itemsTotalCount / itemsPerPage));
+    navigate(`products/${currentPage}`);
   }, [itemsTotalCount, itemsPerPage]);
 
   const toTheFirstPage = () => {
     setCurrentPage(1);
+    navigate(`products/page=1`);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
-      setCurrentPage(currentPage - 1);
+      const prevPage = currentPage - 1;
+      setCurrentPage(prevPage);
+      navigate(`products/page=${prevPage}`);
     }
   };
 
   const toTheNextPage = () => {
-    if (currentPage < itemsTotalCount / itemsPerPage) {
-      setCurrentPage(currentPage + 1);
+    const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
+    if (currentPage < maxPage) {
+      const nextPage = currentPage + 1;
+      setCurrentPage(nextPage);
+      navigate(`products/page=${nextPage}`);
     }
   };
 
   const toTheLastPage = () => {
-    setCurrentPage(Math.ceil(itemsTotalCount / itemsPerPage));
+    const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
+    setCurrentPage(maxPage);
+    navigate(`products/page=${maxPage}`);
   };
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -60,37 +71,62 @@ function App() {
   };
 
   return (
-    // <BrowserRouter>
     <>
-      <ErrorButton />
-      <Input
-        updateData={updateData}
-        currentPage={currentPage}
-        itemsPerPage={itemsPerPage}
-      />
-      <Pagination
-        currentPage={currentPage}
-        toTheFirstPage={toTheFirstPage}
-        toThePrevPage={toThePrevPage}
-        toTheNextPage={toTheNextPage}
-        toTheLastPage={toTheLastPage}
-      />
-      <ItemsAmount
-        itemsPerPage={itemsPerPage}
-        handleSelectChange={handleSelectChange}
-      />
+      <header>
+        <ErrorButton />
+        <Input
+          updateData={updateData}
+          currentPage={currentPage}
+          itemsPerPage={itemsPerPage}
+        />
+        {results.length && (
+          <Pagination
+            currentPage={currentPage}
+            toTheFirstPage={toTheFirstPage}
+            toThePrevPage={toThePrevPage}
+            toTheNextPage={toTheNextPage}
+            toTheLastPage={toTheLastPage}
+          />
+        )}
+        <ItemsAmount
+          itemsPerPage={itemsPerPage}
+          handleSelectChange={handleSelectChange}
+        />
+      </header>
+      {/* <BrowserRouter> */}
       <main>
-        <ProductList
+        <Routes>
+          <Route
+            path="products/page=:currentPage"
+            element={
+              <ProductList
+                products={results}
+                clickHandler={showDetails}
+                setID={setID}
+              />
+            }
+          />
+          <Route
+            path="/products/details/:id"
+            element={<ProductDetails clickHandler={showDetails} id={cardID} />}
+          />
+          <Route index element={<Navigate to="products/page=:currentPage" />} />
+        </Routes>
+        <Outlet />
+      </main>
+      {/* </BrowserRouter> */}
+
+      {/* <main> */}
+      {/* <ProductList
           products={results}
           clickHandler={showDetails}
           setID={setID}
-        />
-        {isDetailsVisible && (
-          <ProductDetails clickHandler={showDetails} id={cardID} />
-        )}
-      </main>
+        /> */}
+      {/* {isDetailsVisible && (
+        <ProductDetails clickHandler={showDetails} id={cardID} />
+      )} */}
+      {/* </main> */}
     </>
-    // </BrowserRouter>
   );
 }
 

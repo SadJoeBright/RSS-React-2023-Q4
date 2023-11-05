@@ -1,5 +1,6 @@
 import ProductCard from '../ProductCard/ProductCard';
 import { Product } from '../../types/types';
+import './ProductList.css';
 
 interface ResultsProps {
   products: Product[];
