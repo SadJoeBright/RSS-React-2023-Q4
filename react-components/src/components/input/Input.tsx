@@ -1,7 +1,7 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
-import { ColorRing } from 'react-loader-spinner';
 import { Data } from '../../types/types';
 import './input.css';
+import Loader from '../Loader/Loader';
 
 interface InputProps {
   updateData: (data: Data) => void;
@@ -67,18 +67,7 @@ export default function Input({
         Search
       </button>
 
-      {isLoading && (
-        <div className="spinner">
-          <ColorRing
-            visible
-            height={80}
-            width={80}
-            ariaLabel="blocks-loading"
-            wrapperStyle={{}}
-            colors={['#e15b64', '#f47e60', '#f8b26a', '#abbd81', '#849b87']}
-          />
-        </div>
-      )}
+      {isLoading && <Loader />}
     </>
   );
 }

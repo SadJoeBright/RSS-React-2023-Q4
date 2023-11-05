@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Details } from '../../types/types';
 import './ProductDetails.css';
+import Loader from '../Loader/Loader';
 
 interface DetailsProps {
   id: number;
@@ -26,7 +27,7 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
   }, [id]);
 
   if (!details) {
-    return <div>Загрузка...</div>;
+    return <Loader />;
   }
 
   return (
