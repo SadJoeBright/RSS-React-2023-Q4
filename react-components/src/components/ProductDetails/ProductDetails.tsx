@@ -34,11 +34,9 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
     <div className="details">
       <div>
         <h2>{details.title}</h2>
-        <h3>Brand: {details.brand}</h3>
-        <h3>Description: {details.description}</h3>
-        <ul className="item__props-list">
-          <li className="item__prop">Category: {details.category}</li>
-        </ul>
+        <p>Brand: {details.brand}</p>
+        <p>Description: {details.description}</p>
+        <p className="item__prop">Category: {details.category}</p>
       </div>
       <div className="image-container">
         <img src={details.images[0]} alt={details.title} />

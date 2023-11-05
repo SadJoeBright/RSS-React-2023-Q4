@@ -77,6 +77,19 @@ function App() {
     setDetailsVisibility(!isDetailsVisible);
   };
 
+  useEffect(() => {
+    if (isDetailsVisible) {
+      navigate(`products/page=${currentPage}&productID=${cardID}`);
+    } else {
+      navigate(`products/page=${currentPage}`);
+    }
+  }, [isDetailsVisible, currentPage, cardID]);
+
+  const hideDetails = () => {
+    navigate(`products/page=${currentPage}`);
+    setDetailsVisibility(false);
+  };
+
   return (
     <>
       <header>
@@ -113,21 +126,11 @@ function App() {
             }
           />
         </Routes>
+
         {isDetailsVisible && (
-          <ProductDetails clickHandler={showDetails} id={cardID} />
+          <ProductDetails clickHandler={hideDetails} id={cardID} />
         )}
       </main>
-
-      {/* <main> */}
-      {/* <ProductList
-          products={results}
-          clickHandler={showDetails}
-          setID={setID}
-        /> */}
-      {/* {isDetailsVisible && (
-        <ProductDetails clickHandler={showDetails} id={cardID} />
-      )} */}
-      {/* </main> */}
     </>
   );
 }
