@@ -3,22 +3,15 @@ import './ProductList.css';
 import { Product } from '../../types/types';
 
 interface ResultsProps {
-  results: Product[];
+  products: Product[];
 }
 
-export default function ProductList({ results }: ResultsProps) {
+export default function ProductList({ products }: ResultsProps) {
   return (
     <section className="results">
-      {results?.length ? (
-        results.map((item) => (
-          <ProductCard
-            key={item.title}
-            title={item.title}
-            brand={item.brand}
-            category={item.category}
-            description={item.description}
-            images={item.images}
-          />
+      {products?.length ? (
+        products.map((product) => (
+          <ProductCard key={product.id} product={product} />
         ))
       ) : (
         <p>No results</p>

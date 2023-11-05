@@ -13,6 +13,7 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
   const [itemsTotalCount, setItemsTotalCount] = useState(0);
+  // const [isDetailsVisible, setDetailsVisibility] = useState(false);
 
   const updateData = (data: Data) => {
     setResults(data.products);
@@ -48,9 +49,9 @@ function App() {
     setItemsPerPage(selectedValue);
   };
 
-  console.log('Items total count:', itemsTotalCount);
-  console.log('Items per page:', itemsPerPage);
-  console.log('Current page:', currentPage);
+  // const showDetails = () => {
+  //   setDetailsVisibility(true);
+  // };
 
   return (
     // <BrowserRouter>
@@ -72,7 +73,9 @@ function App() {
         itemsPerPage={itemsPerPage}
         handleSelectChange={handleSelectChange}
       />
-      <ProductList results={results} />
+      <main>
+        <ProductList products={results} />
+      </main>
     </>
     // </BrowserRouter>
   );

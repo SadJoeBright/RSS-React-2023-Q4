@@ -1,0 +1,32 @@
+.item {
+  display: flex;
+  border: solid 3px black;
+  text-align: left;
+  padding: 5px 15px;
+  width: 370px;
+  height: 220px;
+}
+
+h2 {
+  text-align: center;
+  padding: 5px 0 10px 0;
+}
+
+h3 {
+  padding: 5px 0;
+}
+
+.item__props-list {
+  list-style-position: inside;
+}
+
+.image-container {
+  display: flex;
+  width: 180px;
+  width: 45%;
+}
+
+img {
+  min-width: 100%;
+  object-fit: contain;
+}

@@ -17,21 +17,37 @@ export default function Pagination({
 }: PaginationProps) {
   return (
     <div className="pagination">
-      <button type="button" onClick={toTheFirstPage}>
+      <button
+        className="pagination__button"
+        type="button"
+        onClick={toTheFirstPage}
+      >
         &lt;&lt;
       </button>
 
-      <button type="button" onClick={toThePrevPage}>
+      <button
+        className="pagination__button"
+        type="button"
+        onClick={toThePrevPage}
+      >
         &lt;
       </button>
 
       <p>{currentPage}</p>
 
-      <button type="button" onClick={toTheNextPage}>
+      <button
+        className="pagination__button"
+        type="button"
+        onClick={toTheNextPage}
+      >
         &gt;
       </button>
 
-      <button type="button" onClick={toTheLastPage}>
+      <button
+        className="pagination__button"
+        type="button"
+        onClick={toTheLastPage}
+      >
         &gt;&gt;
       </button>
     </div>

@@ -1,21 +1,16 @@
 import { Product } from '../../types/types';
 import './ProductCard.css';
 
-export default function ProductCard(props: Product) {
-  const { title, description, brand, category, images } = props;
+interface ProductCardProps {
+  product: Product;
+}
 
+export default function ProductCard({ product }: ProductCardProps) {
   return (
     <div className="item">
-      <div>
-        <h2>{title}</h2>
-        <h3>Brand: {brand}</h3>
-        <h3>Descriptoin: {description}</h3>
-        <ul className="item__props-list">
-          <li className="item__prop">Category: {category}</li>
-        </ul>
-      </div>
+      <h4>{product.title}</h4>
       <div className="image-container">
-        <img src={images[0]} alt={title} />
+        <img src={product.images[0]} alt={product.title} />
       </div>
     </div>
   );
