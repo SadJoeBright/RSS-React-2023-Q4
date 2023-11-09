@@ -1,9 +1,9 @@
 .results {
   margin: 0 auto;
-  padding: 30px;
   display: flex;
-  align-items: center;
+  flex-shrink: 3;
   justify-content: space-between;
   flex-wrap: wrap;
-  row-gap: 15px;
+  gap: 15px;
+  /* border: solid 1px blue; */
 }

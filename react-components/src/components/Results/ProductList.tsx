@@ -5,6 +5,7 @@ import './ProductList.css';
 interface ResultsProps {
   products: Product[];
   clickHandler: () => void;
+  hideDetails: (event: React.MouseEvent) => void;
   setID: (id: number) => void;
 }
 
@@ -12,6 +13,7 @@ export default function ProductList({
   products,
   clickHandler,
   setID,
+  hideDetails,
 }: ResultsProps) {
   const handleProductClick = (id: number) => {
     setID(id);
@@ -19,7 +21,7 @@ export default function ProductList({
   };
 
   return (
-    <section className="results">
+    <section className="results" onClick={hideDetails}>
       {products?.length ? (
         products.map((product) => (
           <ProductCard

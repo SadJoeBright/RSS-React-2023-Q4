@@ -3,21 +3,22 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border: solid 3px rgb(175, 228, 223);
-  border-radius: 20px;
+  /* border: solid 3px rgb(175, 228, 223); */
+  border-radius: 5px;
   text-align: left;
   padding: 5px;
   width: 250px;
   height: 150px;
   transition: all ease-in-out 0.2s;
+  background: white;
+  /* -webkit-box-shadow: 3px 3px 15px 5px rgba(218, 222, 221, 0.3); */
+  /* -moz-box-shadow: 3px 3px 15px 5px rgba(37, 150, 141, 0.3); */
+  box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
 }
 
 .item:hover {
   cursor: pointer;
   transform: scale(1.02);
-  -webkit-box-shadow: 3px 3px 15px 5px rgba(37, 150, 141, 0.3);
-  -moz-box-shadow: 3px 3px 15px 5px rgba(37, 150, 141, 0.3);
-  box-shadow: 3px 3px 15px 5px rgba(37, 150, 141, 0.3);
 }
 
 .item:active {

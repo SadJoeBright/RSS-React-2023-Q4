@@ -85,9 +85,11 @@ function App() {
     }
   }, [isDetailsVisible, currentPage, cardID]);
 
-  const hideDetails = () => {
-    navigate(`products/page=${currentPage}`);
-    setDetailsVisibility(false);
+  const hideDetails = (event: React.MouseEvent) => {
+    if (event.target === event.currentTarget) {
+      navigate(`products/page=${currentPage}`);
+      setDetailsVisibility(false);
+    }
   };
 
   return (
@@ -121,6 +123,7 @@ function App() {
               <ProductList
                 products={results}
                 clickHandler={showDetails}
+                hideDetails={hideDetails}
                 setID={setID}
               />
             }
@@ -128,7 +131,7 @@ function App() {
         </Routes>
 
         {isDetailsVisible && (
-          <ProductDetails clickHandler={hideDetails} id={cardID} />
+          <ProductDetails clickHandler={showDetails} id={cardID} />
         )}
       </main>
     </>

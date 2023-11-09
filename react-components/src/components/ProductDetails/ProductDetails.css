@@ -1,9 +1,37 @@
-main {
+.details {
   display: flex;
+  flex-direction: column;
+  max-width: 400px;
+  max-height: 800px;
+  padding: 10px;
+  box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
+  border-radius: 10px;
+  background: white;
+  transition: all ease-out 5s;
 }
 
-.details {
-  width: 50%;
-  height: 100%;
-  border: solid 3px rgb(175, 228, 223);
+.details__button {
+  display: flex;
+  align-items: center;
+  position: relative;
+  bottom: 50px;
+  left: 50px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: none;
+  align-self: flex-end;
+  line-height: 150%;
+  box-shadow: 2px 2px 5px 2px rgb(155, 155, 155, 0.5);
+  transition: all ease-in-out 0.2s;
+}
+
+.details__button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  background: rgba(204, 204, 204, 0.5);
+}
+
+.details__button:active {
+  transform: scale(1);
 }

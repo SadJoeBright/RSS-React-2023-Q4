@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Details } from '../../types/types';
 import './ProductDetails.css';
+import closeIcon from '../../assets/icons/Close.svg';
 import Loader from '../Loader/Loader';
 
 interface DetailsProps {
@@ -32,6 +33,9 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
 
   return (
     <div className="details">
+      <div className="details__button" onClick={clickHandler}>
+        <img src={closeIcon} alt="close" />
+      </div>
       <div>
         <h2>{details.title}</h2>
         <p>Brand: {details.brand}</p>
@@ -41,9 +45,6 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
       <div className="image-container">
         <img src={details.images[0]} alt={details.title} />
       </div>
-      <button type="button" onClick={clickHandler}>
-        Close
-      </button>
     </div>
   );
 }
