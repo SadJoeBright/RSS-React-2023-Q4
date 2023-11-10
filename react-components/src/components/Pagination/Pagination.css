@@ -3,17 +3,17 @@
   align-items: center;
   gap: 5px;
 
-  line-height: 100%;
   color: rgb(1, 107, 107);
   font-size: 20px;
 }
 
 .pagination__button {
-  width: 20px;
-  height: 20px;
-  border: solid 2px rgb(175, 228, 223);
+  width: 30px;
+  height: 30px;
   border-radius: 20%;
-  background: none;
+  border: none;
+  background: white;
+  box-shadow: 2px 2px 5px 2px rgb(155, 155, 155, 0.5);
   cursor: pointer;
   transition: all ease-in-out 0.2s;
 }
@@ -24,4 +24,17 @@
 
 .pagination__button:active {
   transform: scale(0.9);
+}
+
+.current-page {
+  width: 32px;
+  height: 32px;
+  border-radius: 20%;
+  background: rgb(222, 222, 222);
+  border-top: solid 2px rgb(188, 188, 188);
+  border-left: solid 2px rgb(188, 188, 188);
+  border-right: solid 2px rgb(216, 216, 216);
+  border-bottom: solid 2px rgb(216, 216, 216);
+  vertical-align: middle;
+  line-height: 150%;
 }

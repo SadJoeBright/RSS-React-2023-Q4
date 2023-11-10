@@ -1,13 +1,10 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
-import ErrorButton from './components/ErrorBoundary/errorButton';
 import { Data, Product } from './types/types';
-import Pagination from './components/Pagination/Pagination';
 import ProductList from './components/Results/ProductList';
-import Input from './components/input/Input';
-import ItemsAmount from './components/itemsAmount/itemsAmount';
 import ProductDetails from './components/ProductDetails/ProductDetails';
+import Header from './components/Header/Header';
 
 function App() {
   const [results, setResults] = useState<Product[]>([]);
@@ -94,27 +91,16 @@ function App() {
 
   return (
     <>
-      <header>
-        <ErrorButton />
-        <Input
-          updateData={updateData}
-          currentPage={currentPage}
-          itemsPerPage={itemsPerPage}
-        />
-        {results.length && (
-          <Pagination
-            currentPage={currentPage}
-            toTheFirstPage={toTheFirstPage}
-            toThePrevPage={toThePrevPage}
-            toTheNextPage={toTheNextPage}
-            toTheLastPage={toTheLastPage}
-          />
-        )}
-        <ItemsAmount
-          itemsPerPage={itemsPerPage}
-          handleSelectChange={handleSelectChange}
-        />
-      </header>
+      <Header
+        currentPage={currentPage}
+        itemsPerPage={itemsPerPage}
+        handleSelectChange={handleSelectChange}
+        toTheFirstPage={toTheFirstPage}
+        toThePrevPage={toThePrevPage}
+        toTheNextPage={toTheNextPage}
+        toTheLastPage={toTheLastPage}
+        updateData={updateData}
+      />
       <main>
         <Routes>
           <Route

@@ -33,7 +33,7 @@ export default function Pagination({
         &lt;
       </button>
 
-      <p>{currentPage}</p>
+      <p className="current-page">{currentPage}</p>
 
       <button
         className="pagination__button"

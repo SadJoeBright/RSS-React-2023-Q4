@@ -49,7 +49,7 @@ export default function Input({
   }, [currentPage, itemsPerPage]);
 
   return (
-    <>
+    <div className="search">
       <input
         className="input"
         type="text"
@@ -67,6 +67,6 @@ export default function Input({
       </button>
 
       {isLoading && <Loader />}
-    </>
+    </div>
   );
 }

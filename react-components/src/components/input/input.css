@@ -1,3 +1,30 @@
+.search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.search-button {
+  padding: 5px;
+  height: 30px;
+  border-radius: 10%;
+  border: none;
+  background: white;
+  box-shadow: 2px 2px 5px 2px rgb(155, 155, 155, 0.5);
+  transition: all ease-in-out 0.2s;
+}
+
+.search-button:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  background: rgba(224, 224, 224, 0.5);
+}
+
 .input {
-  padding: 0 2px;
+  max-width: 350px;
+  height: 30px;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 2px rgb(155, 155, 155, 0.5);
+  outline: none;
 }
