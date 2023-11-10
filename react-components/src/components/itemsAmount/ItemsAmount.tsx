@@ -1,21 +1,20 @@
 import './ItemsAmount.css';
 
 interface ItemsAmountProps {
-  itemsPerPage: number;
-  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChange: (selectedValue: number) => void;
 }
 
-export default function ItemsAmount({
-  itemsPerPage,
-  handleSelectChange,
-}: ItemsAmountProps) {
+export default function ItemsAmount({ onChange }: ItemsAmountProps) {
+  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValue = parseInt(event.target.value, 10);
+    onChange(selectedValue);
+  };
+
   return (
     <div>
-      {/* Per page: */}
       <select
         placeholder="Per page"
         className="items-amount"
-        value={itemsPerPage}
         onChange={handleSelectChange}
       >
         <option value="5">5</option>

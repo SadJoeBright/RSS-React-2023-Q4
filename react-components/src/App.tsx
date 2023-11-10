@@ -21,6 +21,10 @@ function App() {
 
   const navigate = useNavigate();
 
+  const updatePageNumber = (page: number) => {
+    setCurrentPage(page);
+  };
+
   useEffect(() => {
     setCurrentPage(1);
     navigate(`products/page=${currentPage}`);
@@ -33,36 +37,7 @@ function App() {
     setCurrentPage(newPage);
   }, [window.location.pathname]);
 
-  const toTheFirstPage = () => {
-    setCurrentPage(1);
-    navigate(`products/page=1`);
-  };
-
-  const toThePrevPage = () => {
-    if (currentPage > 1) {
-      const prevPage = currentPage - 1;
-      setCurrentPage(prevPage);
-      navigate(`products/page=${prevPage}`);
-    }
-  };
-
-  const toTheNextPage = () => {
-    const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
-    if (currentPage < maxPage) {
-      const nextPage = currentPage + 1;
-      setCurrentPage(nextPage);
-      navigate(`products/page=${nextPage}`);
-    }
-  };
-
-  const toTheLastPage = () => {
-    const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
-    setCurrentPage(maxPage);
-    navigate(`products/page=${maxPage}`);
-  };
-
-  const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = parseInt(event.target.value, 10);
+  const handleItemsPerPageChange = (selectedValue: number) => {
     setItemsPerPage(selectedValue);
   };
 
@@ -94,11 +69,9 @@ function App() {
       <Header
         currentPage={currentPage}
         itemsPerPage={itemsPerPage}
-        handleSelectChange={handleSelectChange}
-        toTheFirstPage={toTheFirstPage}
-        toThePrevPage={toThePrevPage}
-        toTheNextPage={toTheNextPage}
-        toTheLastPage={toTheLastPage}
+        itemsTotalCount={itemsTotalCount}
+        onChange={handleItemsPerPageChange}
+        updatePageNumber={updatePageNumber}
         updateData={updateData}
       />
       <main>

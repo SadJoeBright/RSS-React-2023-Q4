@@ -2,22 +2,43 @@ import './Pagination.css';
 
 interface PaginationProps {
   currentPage: number;
-  toTheFirstPage: () => void;
-  toThePrevPage: () => void;
-  toTheNextPage: () => void;
-  toTheLastPage: () => void;
+  itemsPerPage: number;
+  itemsTotalCount: number;
+  updatePageNumber: (page: number) => void;
 }
 
 export default function Pagination({
   currentPage,
-  toTheFirstPage,
-  toThePrevPage,
-  toTheNextPage,
-  toTheLastPage,
+  itemsPerPage,
+  itemsTotalCount,
+  updatePageNumber,
 }: PaginationProps) {
+  const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
+
+  const toTheFirstPage = () => {
+    updatePageNumber(1);
+  };
+
+  const toThePrevPage = () => {
+    if (currentPage > 1) {
+      updatePageNumber(currentPage - 1);
+    }
+  };
+
+  const toTheNextPage = () => {
+    if (currentPage < maxPage) {
+      updatePageNumber(currentPage + 1);
+    }
+  };
+
+  const toTheLastPage = () => {
+    updatePageNumber(maxPage);
+  };
+
   return (
     <div className="pagination">
       <button
+        disabled={currentPage === 1}
         className="pagination__button"
         type="button"
         onClick={toTheFirstPage}
@@ -26,6 +47,7 @@ export default function Pagination({
       </button>
 
       <button
+        disabled={currentPage === 1}
         className="pagination__button"
         type="button"
         onClick={toThePrevPage}
@@ -36,6 +58,7 @@ export default function Pagination({
       <p className="current-page">{currentPage}</p>
 
       <button
+        disabled={currentPage === maxPage}
         className="pagination__button"
         type="button"
         onClick={toTheNextPage}
@@ -44,6 +67,7 @@ export default function Pagination({
       </button>
 
       <button
+        disabled={currentPage === maxPage}
         className="pagination__button"
         type="button"
         onClick={toTheLastPage}

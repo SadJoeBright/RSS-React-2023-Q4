@@ -7,23 +7,19 @@ import classes from './Header.module.css';
 interface HederProps {
   currentPage: number;
   itemsPerPage: number;
+  itemsTotalCount: number;
   updateData: (data: Data) => void;
-  handleSelectChange: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  toTheFirstPage: () => void;
-  toThePrevPage: () => void;
-  toTheNextPage: () => void;
-  toTheLastPage: () => void;
+  onChange: (selectedValue: number) => void;
+  updatePageNumber: (page: number) => void;
 }
 
 export default function Header({
   currentPage,
   itemsPerPage,
+  itemsTotalCount,
   updateData,
-  handleSelectChange,
-  toTheFirstPage,
-  toThePrevPage,
-  toTheNextPage,
-  toTheLastPage,
+  onChange,
+  updatePageNumber,
 }: HederProps) {
   return (
     <header className={classes.header}>
@@ -35,15 +31,11 @@ export default function Header({
       <div className={classes.pageSettings}>
         <Pagination
           currentPage={currentPage}
-          toTheFirstPage={toTheFirstPage}
-          toThePrevPage={toThePrevPage}
-          toTheNextPage={toTheNextPage}
-          toTheLastPage={toTheLastPage}
-        />
-        <ItemsAmount
           itemsPerPage={itemsPerPage}
-          handleSelectChange={handleSelectChange}
+          itemsTotalCount={itemsTotalCount}
+          updatePageNumber={updatePageNumber}
         />
+        <ItemsAmount onChange={onChange} />
       </div>
     </header>
   );

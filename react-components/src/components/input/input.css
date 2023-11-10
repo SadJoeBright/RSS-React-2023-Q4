@@ -25,6 +25,10 @@
   height: 30px;
   padding: 5px;
   border-radius: 5px;
-  border: solid 2px rgb(155, 155, 155, 0.5);
+  background: rgba(224, 224, 224, 0.5);
+  border-top: solid 2px rgb(206, 204, 204);
+  border-left: solid 2px rgb(206, 204, 204);
+  border-right: solid 2px rgba(240, 239, 239, 0.5);
+  border-bottom: solid 2px rgba(240, 239, 239, 0.5);
   outline: none;
 }
