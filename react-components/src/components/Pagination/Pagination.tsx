@@ -1,38 +1,30 @@
+import { useAppContext } from '../context/appContext';
 import './Pagination.css';
 
-interface PaginationProps {
-  currentPage: number;
-  itemsPerPage: number;
-  itemsTotalCount: number;
-  updatePageNumber: (page: number) => void;
-}
+export default function Pagination() {
+  const { itemsTotalCount, currentPage, itemsPerPage, setCurrentPage } =
+    useAppContext();
 
-export default function Pagination({
-  currentPage,
-  itemsPerPage,
-  itemsTotalCount,
-  updatePageNumber,
-}: PaginationProps) {
   const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
 
   const toTheFirstPage = () => {
-    updatePageNumber(1);
+    setCurrentPage(1);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
-      updatePageNumber(currentPage - 1);
+      setCurrentPage(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
-      updatePageNumber(currentPage + 1);
+      setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
-    updatePageNumber(maxPage);
+    setCurrentPage(maxPage);
   };
 
   return (

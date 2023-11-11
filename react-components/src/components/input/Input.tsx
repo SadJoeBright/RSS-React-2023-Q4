@@ -4,17 +4,13 @@ import './input.css';
 import Loader from '../Loader/Loader';
 import { useAppContext } from '../context/appContext';
 
-interface InputProps {
-  currentPage: number;
-  itemsPerPage: number;
-}
-
-export default function Input({ currentPage, itemsPerPage }: InputProps) {
+export default function Input() {
   const [searchValue, setSearchValue] = useState(
     window.localStorage.getItem('searchValue') || ''
   );
 
-  const { setResults, setItemsTotalCount } = useAppContext();
+  const { currentPage, itemsPerPage, setResults, setItemsTotalCount } =
+    useAppContext();
 
   const [isLoading, setLoadingState] = useState(false);
 

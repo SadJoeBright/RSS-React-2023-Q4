@@ -1,13 +1,12 @@
+import { useAppContext } from '../context/appContext';
 import './ItemsAmount.css';
 
-interface ItemsAmountProps {
-  onChange: (selectedValue: number) => void;
-}
+export default function ItemsAmount() {
+  const { setItemsPerPage } = useAppContext();
 
-export default function ItemsAmount({ onChange }: ItemsAmountProps) {
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValue = parseInt(event.target.value, 10);
-    onChange(selectedValue);
+    const selectedValue = Number(event.target.value);
+    setItemsPerPage(selectedValue);
   };
 
   return (

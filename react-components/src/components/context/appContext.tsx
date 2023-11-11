@@ -4,9 +4,13 @@ import { Product } from '../../types/types';
 
 interface AppContextProps {
   results: Product[];
-  setResults: React.Dispatch<React.SetStateAction<Product[]>>;
   itemsTotalCount: number;
+  currentPage: number;
+  itemsPerPage: number;
+  setResults: React.Dispatch<React.SetStateAction<Product[]>>;
   setItemsTotalCount: React.Dispatch<React.SetStateAction<number>>;
+  setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
+  setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -15,10 +19,21 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
   function AppProvider({ children }) {
     const [results, setResults] = useState<Product[]>([]);
     const [itemsTotalCount, setItemsTotalCount] = useState(0);
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(5);
 
     return (
       <AppContext.Provider
-        value={{ results, setResults, itemsTotalCount, setItemsTotalCount }}
+        value={{
+          results,
+          setResults,
+          itemsTotalCount,
+          setItemsTotalCount,
+          currentPage,
+          setCurrentPage,
+          itemsPerPage,
+          setItemsPerPage,
+        }}
       >
         {children}
       </AppContext.Provider>
