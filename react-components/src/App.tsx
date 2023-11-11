@@ -1,23 +1,18 @@
 import { Routes, Route, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import './App.css';
-import { Data, Product } from './types/types';
 import ProductList from './components/Results/ProductList';
 import ProductDetails from './components/ProductDetails/ProductDetails';
 import Header from './components/Header/Header';
+import { useAppContext } from './components/context/appContext';
 
 function App() {
-  const [results, setResults] = useState<Product[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(5);
-  const [itemsTotalCount, setItemsTotalCount] = useState(0);
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
 
-  const updateData = (data: Data) => {
-    setResults(data.products);
-    setItemsTotalCount(data.total);
-  };
+  const { itemsTotalCount } = useAppContext();
 
   const navigate = useNavigate();
 
@@ -72,7 +67,6 @@ function App() {
         itemsTotalCount={itemsTotalCount}
         onChange={handleItemsPerPageChange}
         updatePageNumber={updatePageNumber}
-        updateData={updateData}
       />
       <main>
         <Routes>
@@ -80,7 +74,6 @@ function App() {
             path="products/page=:currentPage"
             element={
               <ProductList
-                products={results}
                 clickHandler={showDetails}
                 hideDetails={hideDetails}
                 setID={setID}

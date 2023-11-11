@@ -2,21 +2,19 @@ import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { Data } from '../../types/types';
 import './input.css';
 import Loader from '../Loader/Loader';
+import { useAppContext } from '../context/appContext';
 
 interface InputProps {
-  updateData: (data: Data) => void;
   currentPage: number;
   itemsPerPage: number;
 }
 
-export default function Input({
-  updateData,
-  currentPage,
-  itemsPerPage,
-}: InputProps) {
+export default function Input({ currentPage, itemsPerPage }: InputProps) {
   const [searchValue, setSearchValue] = useState(
     window.localStorage.getItem('searchValue') || ''
   );
+
+  const { setResults, setItemsTotalCount } = useAppContext();
 
   const [isLoading, setLoadingState] = useState(false);
 
@@ -34,7 +32,8 @@ export default function Input({
 
     const response = await fetch(url);
     const data: Data = await response.json();
-    updateData(data);
+    setResults(data.products);
+    setItemsTotalCount(data.total);
     setLoadingState(false);
   }
 
