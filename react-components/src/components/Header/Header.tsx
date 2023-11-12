@@ -1,12 +1,12 @@
 import Pagination from '../Pagination/Pagination';
-import Input from '../input/Input';
+import Search from '../Search/Search';
 import ItemsAmount from '../itemsAmount/ItemsAmount';
 import classes from './Header.module.css';
 
 export default function Header() {
   return (
     <header className={classes.header}>
-      <Input />
+      <Search />
       <div className={classes.pageSettings}>
         <Pagination />
         <ItemsAmount />

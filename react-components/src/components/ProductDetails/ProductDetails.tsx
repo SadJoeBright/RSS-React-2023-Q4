@@ -1,21 +1,25 @@
 import { useState, useEffect } from 'react';
+// import { useParams } from 'react-router-dom';
 import { Details } from '../../types/types';
 import './ProductDetails.css';
 import closeIcon from '../../assets/icons/Close.svg';
 import Loader from '../Loader/Loader';
 
 interface DetailsProps {
-  id: number;
-  clickHandler: () => void;
+  productId: number;
+  handleClick: () => void;
 }
 
-export default function ProductDetails({ id, clickHandler }: DetailsProps) {
+export default function ProductDetails({
+  productId,
+  handleClick,
+}: DetailsProps) {
   const [details, setDetails] = useState<Details | null>(null);
 
   useEffect(() => {
     async function fetchProductDetails() {
       try {
-        const url = `https://dummyjson.com/products/${id}`;
+        const url = `https://dummyjson.com/products/${productId}`;
         const response = await fetch(url);
         const productDetails: Details = await response.json();
         setDetails(productDetails);
@@ -25,7 +29,7 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
     }
 
     fetchProductDetails();
-  }, [id]);
+  }, [productId]);
 
   if (!details) {
     return <Loader />;
@@ -33,7 +37,7 @@ export default function ProductDetails({ id, clickHandler }: DetailsProps) {
 
   return (
     <div className="details">
-      <div className="details__button" onClick={clickHandler}>
+      <div className="details__button" onClick={handleClick}>
         <img src={closeIcon} alt="close" />
       </div>
       <div>

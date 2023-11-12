@@ -1,10 +1,10 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { Data } from '../../types/types';
-import './input.css';
+import './Search.css';
 import Loader from '../Loader/Loader';
 import { useAppContext } from '../context/appContext';
 
-export default function Input() {
+export default function Search() {
   const [searchValue, setSearchValue] = useState(
     window.localStorage.getItem('searchValue') || ''
   );
