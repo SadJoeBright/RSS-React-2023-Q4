@@ -19,10 +19,6 @@ export default function Pagination() {
     setCurrentPage(1);
   }, [itemsPerPage]);
 
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [itemsPerPage]);
-
   const toTheFirstPage = () => {
     setCurrentPage(1);
   };
