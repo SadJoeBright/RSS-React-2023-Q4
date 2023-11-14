@@ -1,5 +1,12 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
-import React, { createContext, useContext, ReactNode, useState } from 'react';
+import React, {
+  createContext,
+  useContext,
+  ReactNode,
+  useState,
+  useEffect,
+} from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { Product } from '../../types/types';
 
 interface AppContextProps {
@@ -19,8 +26,20 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
   function AppProvider({ children }) {
     const [results, setResults] = useState<Product[]>([]);
     const [itemsTotalCount, setItemsTotalCount] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(5);
-    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(
+      Number(localStorage.getItem('itemsPerPage')) || 5
+    );
+
+    const [searchParams] = useSearchParams();
+    const urlPage = Number(searchParams.get('page'));
+
+    const [currentPage, setCurrentPage] = useState(urlPage || 1);
+
+    useEffect(() => {
+      setCurrentPage(urlPage || 1);
+    }, [searchParams]);
+
+    console.log(searchParams.get('page'));
 
     return (
       <AppContext.Provider

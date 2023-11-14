@@ -1,4 +1,5 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ProductCard from '../ProductCard/ProductCard';
 import './ProductList.css';
 import { useAppContext } from '../context/appContext';
@@ -8,9 +9,9 @@ export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
 
-  const { results } = useAppContext();
+  const { results, currentPage } = useAppContext();
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const hideDetails = (event: React.MouseEvent) => {
     if (event.target === event.currentTarget) {
@@ -18,13 +19,13 @@ export default function ProductList() {
     }
   };
 
-  // useEffect(() => {
-  //   if (isDetailsVisible) {
-  //     navigate(`/products/page=${currentPage}&productID=${cardID}`);
-  //   } else {
-  //     navigate(`/products/page=${currentPage}`);
-  //   }
-  // }, [isDetailsVisible, cardID]);
+  useEffect(() => {
+    if (isDetailsVisible) {
+      navigate(`/products/?page=${currentPage}&productID=${cardID}`);
+    } else {
+      navigate(`/products/?page=${currentPage}`);
+    }
+  }, [isDetailsVisible, cardID]);
 
   return (
     <>

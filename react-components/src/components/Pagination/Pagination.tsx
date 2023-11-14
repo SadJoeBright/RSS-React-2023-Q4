@@ -1,5 +1,4 @@
-import { useEffect } from 'react';
-// import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppContext } from '../context/appContext';
 import './Pagination.css';
 
@@ -9,33 +8,29 @@ export default function Pagination() {
 
   const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
 
-  // const navigate = useNavigate();
-
-  useEffect(() => {
-    // navigate(`products/page=${currentPage}`);
-  }, [currentPage]);
-
-  useEffect(() => {
-    setCurrentPage(1);
-  }, [itemsPerPage]);
+  const navigate = useNavigate();
 
   const toTheFirstPage = () => {
     setCurrentPage(1);
+    navigate(`products/?page=1`);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
+      navigate(`products/?page=${currentPage - 1}`);
       setCurrentPage(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
+      navigate(`products/?page=${currentPage + 1}`);
       setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
+    navigate(`products/?page=${maxPage}`);
     setCurrentPage(maxPage);
   };
 

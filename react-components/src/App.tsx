@@ -11,7 +11,7 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<Navigate to="/products" />} />
-          <Route path="/products" element={<ProductList />} />
+          <Route path="/products/" element={<ProductList />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </main>
