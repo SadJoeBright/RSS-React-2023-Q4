@@ -39,8 +39,6 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
       setCurrentPage(urlPage || 1);
     }, [searchParams]);
 
-    console.log(searchParams.get('page'));
-
     return (
       <AppContext.Provider
         value={{

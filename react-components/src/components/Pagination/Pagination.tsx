@@ -41,6 +41,7 @@ export default function Pagination() {
         className="pagination__button"
         type="button"
         onClick={toTheFirstPage}
+        data-testid="firstPageButton"
       >
         &lt;&lt;
       </button>
@@ -61,6 +62,7 @@ export default function Pagination() {
         className="pagination__button"
         type="button"
         onClick={toTheNextPage}
+        data-testid="nextPageButton"
       >
         &gt;
       </button>
