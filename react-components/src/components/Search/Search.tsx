@@ -8,15 +8,19 @@ import { AppDispatch, RootState } from '../../state/store';
 import { setSearchValue } from '../../state/searchValue/searchValueSlice';
 
 export default function Search() {
+  const { currentPage, setResults, setItemsTotalCount } = useAppContext();
+
+  const [isLoading, setLoadingState] = useState(false);
+
   const searchValue = useSelector(
     (state: RootState) => state.searchValue.searchValue
   );
+
+  const itemsPerPage = useSelector(
+    (state: RootState) => state.itemsPerPage.itemsPerPage
+  );
+
   const dispatch = useDispatch<AppDispatch>();
-
-  const { currentPage, itemsPerPage, setResults, setItemsTotalCount } =
-    useAppContext();
-
-  const [isLoading, setLoadingState] = useState(false);
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;

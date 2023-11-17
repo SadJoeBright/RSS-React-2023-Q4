@@ -1,10 +1,15 @@
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import { useAppContext } from '../context/appContext';
 import './Pagination.css';
+import { RootState } from '../../state/store';
 
 export default function Pagination() {
-  const { itemsTotalCount, currentPage, itemsPerPage, setCurrentPage } =
-    useAppContext();
+  const { itemsTotalCount, currentPage, setCurrentPage } = useAppContext();
+
+  const itemsPerPage = useSelector(
+    (state: RootState) => state.itemsPerPage.itemsPerPage
+  );
 
   const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
 
