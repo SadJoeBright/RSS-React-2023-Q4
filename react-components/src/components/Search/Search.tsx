@@ -1,13 +1,17 @@
 import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Data } from '../../types/types';
 import './Search.css';
 import Loader from '../Loader/Loader';
 import { useAppContext } from '../context/appContext';
+import { AppDispatch, RootState } from '../../state/store';
+import { setSearchValue } from '../../state/searchValue/searchValueSlice';
 
 export default function Search() {
-  const [searchValue, setSearchValue] = useState(
-    window.localStorage.getItem('searchValue') || ''
+  const searchValue = useSelector(
+    (state: RootState) => state.searchValue.searchValue
   );
+  const dispatch = useDispatch<AppDispatch>();
 
   const { currentPage, itemsPerPage, setResults, setItemsTotalCount } =
     useAppContext();
@@ -16,7 +20,7 @@ export default function Search() {
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
-    setSearchValue(value);
+    dispatch(setSearchValue(value));
     window.localStorage.setItem('searchValue', value);
   }
 
