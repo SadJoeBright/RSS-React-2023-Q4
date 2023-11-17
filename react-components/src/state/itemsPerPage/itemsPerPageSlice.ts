@@ -6,7 +6,7 @@ const initialState = {
 };
 
 const itemsPerPageSlice = createSlice({
-  name: 'searchValue',
+  name: 'itemsPerPage',
   initialState,
   reducers: {
     setItemsPerPage(state, action: PayloadAction<number>) {

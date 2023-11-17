@@ -1,13 +1,20 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
-import './ProductList.css';
 import { useAppContext } from '../context/appContext';
 import ProductDetails from '../ProductDetails/ProductDetails';
+import { RootState } from '../../state/store';
+import './ProductList.css';
+import Loader from '../Loader/Loader';
 
 export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
+
+  const isLoading = useSelector(
+    (state: RootState) => state.productListLoadingState.isLoading
+  );
 
   const { results, currentPage } = useAppContext();
 
@@ -30,20 +37,20 @@ export default function ProductList() {
   return (
     <>
       <section className="results" onClick={hideDetails}>
-        {results?.length ? (
-          results.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              clickHandler={() => {
-                setCardID(product.id);
-                setDetailsVisibility(!isDetailsVisible);
-              }}
-            />
-          ))
-        ) : (
-          <p>No results</p>
+        {isLoading && <Loader />}
+        {!isLoading && !results.length && (
+          <p className="no-results">No results</p>
         )}
+        {results.map((product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            clickHandler={() => {
+              setCardID(product.id);
+              setDetailsVisibility(!isDetailsVisible);
+            }}
+          />
+        ))}
       </section>
       {isDetailsVisible && (
         <ProductDetails

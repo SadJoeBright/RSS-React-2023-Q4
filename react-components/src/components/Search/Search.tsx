@@ -1,16 +1,14 @@
-import { useState, useEffect, ChangeEvent, KeyboardEvent } from 'react';
+import { useEffect, ChangeEvent, KeyboardEvent } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Data } from '../../types/types';
-import './Search.css';
-import Loader from '../Loader/Loader';
 import { useAppContext } from '../context/appContext';
 import { AppDispatch, RootState } from '../../state/store';
 import { setSearchValue } from '../../state/searchValue/searchValueSlice';
+import { setProductListLoadingState } from '../../state/productListLoadingState/productListLoadingState';
+import './Search.css';
 
 export default function Search() {
   const { currentPage, setResults, setItemsTotalCount } = useAppContext();
-
-  const [isLoading, setLoadingState] = useState(false);
 
   const searchValue = useSelector(
     (state: RootState) => state.searchValue.searchValue
@@ -29,7 +27,7 @@ export default function Search() {
   }
 
   async function getData(value: string): Promise<void> {
-    setLoadingState(true);
+    dispatch(setProductListLoadingState(true));
     const url = `https://dummyjson.com/products/search?q=${value}&limit=${itemsPerPage}&skip=${
       (currentPage - 1) * itemsPerPage
     }`;
@@ -38,7 +36,7 @@ export default function Search() {
     const data: Data = await response.json();
     setResults(data.products);
     setItemsTotalCount(data.total);
-    setLoadingState(false);
+    dispatch(setProductListLoadingState(false));
   }
 
   function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
@@ -68,8 +66,6 @@ export default function Search() {
       >
         Search
       </button>
-
-      {isLoading && <Loader />}
     </div>
   );
 }
