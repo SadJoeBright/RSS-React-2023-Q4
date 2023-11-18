@@ -17,4 +17,4 @@ const productListLoadingSlice = createSlice({
 
 export const { setProductListLoadingState } = productListLoadingSlice.actions;
 
-export const productListLoadingReduser = productListLoadingSlice.reducer;
+export const productListLoadingReducer = productListLoadingSlice.reducer;

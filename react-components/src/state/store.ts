@@ -1,13 +1,15 @@
 import { configureStore } from '@reduxjs/toolkit';
-import { searchValueReduser } from './searchValue/searchValueSlice';
-import { itemsPerPageReduser } from './itemsPerPage/itemsPerPageSlice';
-import { productListLoadingReduser } from './productListLoadingState/productListLoadingState';
+import { searchValueReducer } from './searchValue/searchValueSlice';
+import { itemsPerPageReducer } from './itemsPerPage/itemsPerPageSlice';
+import { productListLoadingReducer } from './productListLoadingState/productListLoadingState';
+import { detailsLoadingReducer } from './detailsLoadingState/detailsLoadingState';
 
 export const store = configureStore({
   reducer: {
-    searchValue: searchValueReduser,
-    itemsPerPage: itemsPerPageReduser,
-    productListLoadingState: productListLoadingReduser,
+    searchValue: searchValueReducer,
+    itemsPerPage: itemsPerPageReducer,
+    productListLoadingState: productListLoadingReducer,
+    detailsLoadingState: detailsLoadingReducer,
   },
 });
 

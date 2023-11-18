@@ -1,13 +1,20 @@
 .details {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
+  width: 0;
   max-height: 800px;
   padding: 10px;
   box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
   border-radius: 10px;
   background: white;
-  transition: all ease-out 5s;
+  transition: all ease-out 0.5s;
+  position: relative;
+  overflow: hidden;
+}
+
+.details_visible {
+  width: 35%;
+  overflow: visible;
 }
 
 .details__button {

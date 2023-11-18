@@ -11,6 +11,7 @@ import Loader from '../Loader/Loader';
 export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
+  const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
 
   const isLoading = useSelector(
     (state: RootState) => state.productListLoadingState.isLoading
@@ -20,10 +21,19 @@ export default function ProductList() {
 
   const navigate = useNavigate();
 
-  const hideDetails = (event: React.MouseEvent) => {
-    if (event.target === event.currentTarget) {
+  const hideDetails = () => {
+    setDetailsStyleClasses('details');
+
+    setTimeout(() => {
       setDetailsVisibility(false);
-    }
+    }, 300);
+  };
+
+  const showDetails = () => {
+    setDetailsVisibility(true);
+    setTimeout(() => {
+      setDetailsStyleClasses('details details_visible');
+    });
   };
 
   useEffect(() => {
@@ -36,7 +46,16 @@ export default function ProductList() {
 
   return (
     <>
-      <section className="results" onClick={hideDetails}>
+      <section
+        className="results"
+        onClick={() => {
+          if (isDetailsVisible) {
+            hideDetails();
+          } else {
+            showDetails();
+          }
+        }}
+      >
         {isLoading && <Loader />}
         {!isLoading && !results.length && (
           <p className="no-results">No results</p>
@@ -47,15 +66,15 @@ export default function ProductList() {
             product={product}
             clickHandler={() => {
               setCardID(product.id);
-              setDetailsVisibility(!isDetailsVisible);
             }}
           />
         ))}
       </section>
       {isDetailsVisible && (
         <ProductDetails
-          handleClick={() => setDetailsVisibility(false)}
+          handleClick={hideDetails}
           productId={cardID}
+          styleClasses={detailsStyleClasses}
         />
       )}
     </>
