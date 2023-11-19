@@ -1,17 +1,37 @@
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/appContext';
 import './Pagination.css';
 import { RootState } from '../../state/store';
+import { useGetProductsQuery } from '../../state/appApi';
 
 export default function Pagination() {
-  const { itemsTotalCount, currentPage, setCurrentPage } = useAppContext();
+  const { currentPage, setCurrentPage } = useAppContext();
+  const [maxPage, setMaxPage] = useState(1);
 
   const itemsPerPage = useSelector(
     (state: RootState) => state.itemsPerPage.itemsPerPage
   );
 
-  const maxPage = Math.ceil(itemsTotalCount / itemsPerPage);
+  const searchValue = useSelector(
+    (state: RootState) => state.searchValue.searchValue
+  );
+
+  const { data } = useGetProductsQuery({
+    searchValue,
+    itemsPerPage,
+    currentPage,
+  });
+
+  useEffect(() => {
+    if (data?.total) {
+      const itemsTotalCount = data.total;
+      setMaxPage(Math.ceil(itemsTotalCount / itemsPerPage));
+    } else {
+      setMaxPage(1);
+    }
+  });
 
   const navigate = useNavigate();
 

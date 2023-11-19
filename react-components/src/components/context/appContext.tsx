@@ -11,13 +11,9 @@ import { Product } from '../../types/types';
 
 interface AppContextProps {
   results: Product[];
-  itemsTotalCount: number;
   currentPage: number;
-  itemsPerPage: number;
   setResults: React.Dispatch<React.SetStateAction<Product[]>>;
-  setItemsTotalCount: React.Dispatch<React.SetStateAction<number>>;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
-  setItemsPerPage: React.Dispatch<React.SetStateAction<number>>;
 }
 
 const AppContext = createContext<AppContextProps | undefined>(undefined);
@@ -25,10 +21,6 @@ const AppContext = createContext<AppContextProps | undefined>(undefined);
 export const AppProvider: React.FC<{ children: ReactNode }> =
   function AppProvider({ children }) {
     const [results, setResults] = useState<Product[]>([]);
-    const [itemsTotalCount, setItemsTotalCount] = useState(0);
-    const [itemsPerPage, setItemsPerPage] = useState(
-      Number(localStorage.getItem('itemsPerPage')) || 5
-    );
 
     const [searchParams] = useSearchParams();
     const urlPage = Number(searchParams.get('page'));
@@ -44,12 +36,8 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
         value={{
           results,
           setResults,
-          itemsTotalCount,
-          setItemsTotalCount,
           currentPage,
           setCurrentPage,
-          itemsPerPage,
-          setItemsPerPage,
         }}
       >
         {children}

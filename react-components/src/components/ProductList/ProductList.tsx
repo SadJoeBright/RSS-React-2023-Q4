@@ -7,17 +7,33 @@ import ProductDetails from '../ProductDetails/ProductDetails';
 import { RootState } from '../../state/store';
 import './ProductList.css';
 import Loader from '../Loader/Loader';
+import { useGetProductsQuery } from '../../state/appApi';
+import { Product } from '../../types/types';
 
 export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
   const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
 
-  const isLoading = useSelector(
-    (state: RootState) => state.productListLoadingState.isLoading
+  // const isLoading = useSelector(
+  //   (state: RootState) => state.productListLoadingState.isLoading
+  // );
+
+  const itemsPerPage = useSelector(
+    (state: RootState) => state.itemsPerPage.itemsPerPage
   );
 
-  const { results, currentPage } = useAppContext();
+  const searchValue = useSelector(
+    (state: RootState) => state.searchValue.searchValue
+  );
+
+  const { currentPage } = useAppContext();
+
+  const { data, isFetching } = useGetProductsQuery({
+    searchValue,
+    itemsPerPage,
+    currentPage,
+  });
 
   const navigate = useNavigate();
 
@@ -51,24 +67,22 @@ export default function ProductList() {
         onClick={() => {
           if (isDetailsVisible) {
             hideDetails();
-          } else {
-            showDetails();
           }
         }}
       >
-        {isLoading && <Loader />}
-        {!isLoading && !results.length && (
-          <p className="no-results">No results</p>
-        )}
-        {results.map((product) => (
-          <ProductCard
-            key={product.id}
-            product={product}
-            clickHandler={() => {
-              setCardID(product.id);
-            }}
-          />
-        ))}
+        {isFetching && <Loader />}
+        {!data?.products.length && <p className="no-results">No results</p>}
+        {data &&
+          data.products.map((product: Product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              clickHandler={() => {
+                setCardID(product.id);
+                showDetails();
+              }}
+            />
+          ))}
       </section>
       {isDetailsVisible && (
         <ProductDetails
