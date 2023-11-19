@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { Data } from '../types/types';
+import { Data, Details } from '../types/types';
 
 interface RequestParams {
   searchValue: string;
@@ -17,7 +17,12 @@ export const appApi = createApi({
           (currentPage - 1) * itemsPerPage
         }`,
     }),
+
+    getDetails: builder.query<Details, number>({
+      query: (productId) => `${productId}`,
+    }),
   }),
 });
 
 export const { useGetProductsQuery } = appApi;
+export const { useGetDetailsQuery } = appApi;

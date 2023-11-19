@@ -1,30 +1,27 @@
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
 import { useAppContext } from '../context/appContext';
 import ProductDetails from '../ProductDetails/ProductDetails';
-import { RootState } from '../../state/store';
+import { AppDispatch, RootState } from '../../state/store';
 import './ProductList.css';
 import Loader from '../Loader/Loader';
 import { useGetProductsQuery } from '../../state/appApi';
 import { Product } from '../../types/types';
+import { setProductListLoadingState } from '../../state/productListLoadingState/productListLoadingState';
 
 export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
   const [cardID, setCardID] = useState(0);
   const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
 
-  // const isLoading = useSelector(
-  //   (state: RootState) => state.productListLoadingState.isLoading
-  // );
+  const searchValue = useSelector(
+    (state: RootState) => state.searchValue.searchValue
+  );
 
   const itemsPerPage = useSelector(
     (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
-
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
   );
 
   const { currentPage } = useAppContext();
@@ -34,6 +31,13 @@ export default function ProductList() {
     itemsPerPage,
     currentPage,
   });
+
+  const isLoading = useSelector(
+    (state: RootState) => state.productListLoadingState.isLoading
+  );
+
+  const dispatch = useDispatch<AppDispatch>();
+  dispatch(setProductListLoadingState(isFetching));
 
   const navigate = useNavigate();
 
@@ -70,7 +74,7 @@ export default function ProductList() {
           }
         }}
       >
-        {isFetching && <Loader />}
+        {isLoading && <Loader />}
         {!data?.products.length && <p className="no-results">No results</p>}
         {data &&
           data.products.map((product: Product) => (
