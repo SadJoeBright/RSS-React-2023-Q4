@@ -1,5 +1,4 @@
 .card {
-  color: rgb(1, 107, 107);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -13,13 +12,13 @@
   box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
 }
 
-.item:hover {
+.card:hover {
   cursor: pointer;
   transform: scale(1.02);
   box-shadow: 5px 5px 10px 3px rgb(234, 219, 151, 0.5);
 }
 
-.item:active {
+.card:active {
   filter: blur(1px);
   transform: scale(1);
 }
