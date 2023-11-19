@@ -19,6 +19,10 @@
   box-shadow: 2px 2px 5px 2px rgb(234, 219, 151);
 }
 
+.search-button:active {
+  transform: scale(0.95);
+}
+
 .input {
   max-width: 350px;
   height: 30px;

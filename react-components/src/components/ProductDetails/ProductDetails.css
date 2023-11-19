@@ -9,12 +9,29 @@
   background: white;
   transition: all ease-out 0.5s;
   position: relative;
+}
+
+.details__container {
   overflow: hidden;
 }
 
 .details_visible {
   width: 35%;
-  overflow: visible;
+}
+
+.details__content {
+  text-align: left;
+  min-width: max-content;
+}
+
+.details__image-container {
+  margin-bottom: 15px;
+}
+
+.details__image {
+  min-width: 100%;
+  max-height: 200px;
+  object-fit: contain;
 }
 
 .details__button {
@@ -35,10 +52,13 @@
 
 .details__button:hover {
   cursor: pointer;
-  transform: scale(1.05);
-  background: rgba(224, 224, 224, 0.5);
+  box-shadow: 2px 2px 5px 2px rgb(234, 219, 151);
 }
 
 .details__button:active {
-  transform: scale(1);
+  transform: scale(0.9);
+}
+
+p {
+  padding: 5px 0;
 }

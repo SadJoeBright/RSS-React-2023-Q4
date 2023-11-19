@@ -34,14 +34,20 @@ export default function ProductDetails({
           <div className="details__button" onClick={handleClick}>
             <img src={closeIcon} alt="close" />
           </div>
-          <div>
-            <h2>{data.title}</h2>
-            <p>Brand: {data.brand}</p>
-            <p>Description: {data.description}</p>
-            <p className="item__prop">Category: {data.category}</p>
-          </div>
-          <div className="image-container">
-            <img src={data.images[0]} alt={data.title} />
+          <div className="details__container">
+            <div className="details__image-container">
+              <img
+                className="details__image"
+                src={data.images[0]}
+                alt={data.title}
+              />
+            </div>
+            <div className="details__content">
+              <h2>{data.title}</h2>
+              <p>{data.brand}</p>
+              <p>{data.description}</p>
+              <p className="item__prop">{data.category}</p>
+            </div>
           </div>
         </>
       )}

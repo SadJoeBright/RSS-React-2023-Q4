@@ -11,10 +11,14 @@ export default function ProductCard({
   clickHandler,
 }: ProductCardProps) {
   return (
-    <div className="item" onClick={clickHandler}>
+    <div className="card" onClick={clickHandler}>
       <h4>{product.title}</h4>
-      <div className="image-container">
-        <img src={product.images[0]} alt={product.title} />
+      <div className="card__image-container">
+        <img
+          className="card__image"
+          src={product.images[0]}
+          alt={product.title}
+        />
       </div>
     </div>
   );

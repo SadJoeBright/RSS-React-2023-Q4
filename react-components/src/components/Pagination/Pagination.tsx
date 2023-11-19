@@ -80,7 +80,7 @@ export default function Pagination() {
         &lt;
       </button>
 
-      <p className="current-page">{currentPage}</p>
+      <span className="current-page">{currentPage}</span>
 
       <button
         disabled={currentPage === maxPage}

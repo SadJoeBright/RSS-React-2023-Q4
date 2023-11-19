@@ -1,4 +1,4 @@
-.item {
+.card {
   color: rgb(1, 107, 107);
   display: flex;
   justify-content: space-between;
@@ -24,12 +24,12 @@
   transform: scale(1);
 }
 
-.image-container {
+.card__image-container {
   display: flex;
   width: 55%;
 }
 
-img {
+.card__image {
   min-width: 100%;
   max-height: 120px;
   object-fit: contain;
