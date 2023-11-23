@@ -4,9 +4,9 @@ import React, {
   useContext,
   ReactNode,
   useState,
-  useEffect,
+  // useEffect,
 } from 'react';
-import { useSearchParams } from 'react-router-dom';
+// import { useSearchParams } from 'react-router-dom';
 import { Product } from '../../types/types';
 
 interface AppContextProps {
@@ -22,14 +22,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
   function AppProvider({ children }) {
     const [results, setResults] = useState<Product[]>([]);
 
-    const [searchParams] = useSearchParams();
-    const urlPage = Number(searchParams.get('page'));
+    // const [searchParams] = useSearchParams();
+    // const urlPage = Number(searchParams.get('page'));
 
-    const [currentPage, setCurrentPage] = useState(urlPage || 1);
+    const [currentPage, setCurrentPage] = useState(1);
 
-    useEffect(() => {
-      setCurrentPage(urlPage || 1);
-    }, [searchParams]);
+    // useEffect(() => {
+    //   setCurrentPage(urlPage || 1);
+    // }, [searchParams]);
 
     return (
       <AppContext.Provider

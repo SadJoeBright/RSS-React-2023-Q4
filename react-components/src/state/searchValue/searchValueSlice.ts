@@ -1,7 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  searchValue: window.localStorage.getItem('searchValue') || '',
+  // searchValue: window.localStorage.getItem('searchValue') || '',
+  searchValue: '',
 };
 
 const searchValueSlice = createSlice({

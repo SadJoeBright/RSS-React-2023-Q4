@@ -1,8 +1,8 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/appContext';
-import './Pagination.css';
+// import './Pagination.css';
 import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
 
@@ -33,29 +33,29 @@ export default function Pagination() {
     }
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const toTheFirstPage = () => {
     setCurrentPage(1);
-    navigate(`products/?page=1`);
+    // navigate(`products/?page=1`);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
-      navigate(`products/?page=${currentPage - 1}`);
+      // navigate(`products/?page=${currentPage - 1}`);
       setCurrentPage(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
-      navigate(`products/?page=${currentPage + 1}`);
+      // navigate(`products/?page=${currentPage + 1}`);
       setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
-    navigate(`products/?page=${maxPage}`);
+    // navigate(`products/?page=${maxPage}`);
     setCurrentPage(maxPage);
   };
 

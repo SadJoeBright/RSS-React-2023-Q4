@@ -2,7 +2,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setSearchValue } from '../../state/searchValue/searchValueSlice';
-import './Search.css';
+// import './Search.css';
 
 export default function Search() {
   const searchValue = useSelector(

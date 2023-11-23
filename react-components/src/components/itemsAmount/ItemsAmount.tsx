@@ -1,9 +1,9 @@
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAppContext } from '../context/appContext';
 import { RootState, AppDispatch } from '../../state/store';
 import { setItemsPerPage } from '../../state/itemsPerPage/itemsPerPageSlice';
-import './ItemsAmount.css';
+// import './ItemsAmount.css';
 
 export default function ItemsAmount() {
   const { setCurrentPage } = useAppContext();
@@ -14,7 +14,7 @@ export default function ItemsAmount() {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = Number(event.target.value);
@@ -22,7 +22,7 @@ export default function ItemsAmount() {
     localStorage.setItem('itemsPerPage', selectedValue.toString());
 
     setCurrentPage(1);
-    navigate('products/?page=1');
+    // navigate('products/?page=1');
   };
 
   return (

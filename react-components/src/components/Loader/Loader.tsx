@@ -1,5 +1,5 @@
 import { Circles } from 'react-loader-spinner';
-import './loader.css';
+// import './loader.css';
 
 export default function Loader() {
   return (

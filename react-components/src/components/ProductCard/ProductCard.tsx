@@ -1,5 +1,5 @@
 import { Product } from '../../types/types';
-import './ProductCard.css';
+// import './ProductCard.css';
 
 interface ProductCardProps {
   product: Product;

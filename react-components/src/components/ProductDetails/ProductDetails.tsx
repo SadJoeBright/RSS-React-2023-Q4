@@ -1,10 +1,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
-import closeIcon from '../../assets/icons/Close.svg';
+// import closeIcon from '../../assets/icons/Close.svg';
 import Loader from '../Loader/Loader';
 import { setDetailsLoadingState } from '../../state/detailsLoadingState/detailsLoadingState';
 import { useGetDetailsQuery } from '../../state/appApi';
-import './ProductDetails.css';
+// import './ProductDetails.css';
 
 interface DetailsProps {
   productId: number;
@@ -32,7 +32,7 @@ export default function ProductDetails({
       {data && (
         <>
           <div className="details__button" onClick={handleClick}>
-            <img src={closeIcon} alt="close" />
+            {/* <img src={closeIcon} alt="close" /> */}
           </div>
           <div className="details__container">
             <div className="details__image-container">

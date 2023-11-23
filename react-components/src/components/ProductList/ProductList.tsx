@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import ProductCard from '../ProductCard/ProductCard';
 import { useAppContext } from '../context/appContext';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import { AppDispatch, RootState } from '../../state/store';
-import './ProductList.css';
+// import './ProductList.css';
 import Loader from '../Loader/Loader';
 import { useGetProductsQuery } from '../../state/appApi';
 import { Product } from '../../types/types';
@@ -39,7 +39,7 @@ export default function ProductList() {
   const dispatch = useDispatch<AppDispatch>();
   dispatch(setProductListLoadingState(isFetching));
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   const hideDetails = () => {
     setDetailsStyleClasses('details');
@@ -58,9 +58,9 @@ export default function ProductList() {
 
   useEffect(() => {
     if (isDetailsVisible) {
-      navigate(`/products/?page=${currentPage}&productID=${cardID}`);
+      // navigate(`/products/?page=${currentPage}&productID=${cardID}`);
     } else {
-      navigate(`/products/?page=${currentPage}`);
+      // navigate(`/products/?page=${currentPage}`);
     }
   }, [isDetailsVisible, cardID]);
 
