@@ -2,7 +2,7 @@ import { ChangeEvent, KeyboardEvent, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../state/store';
 import { setSearchValue } from '../../state/searchValue/searchValueSlice';
-// import './Search.css';
+import styles from './Search.module.css';
 
 export default function Search() {
   const searchValue = useSelector(
@@ -30,16 +30,20 @@ export default function Search() {
   }
 
   return (
-    <div className="search">
+    <div className={styles.search}>
       <input
-        className="input"
+        className={styles.input}
         type="text"
         value={currentSearchValue}
         onChange={handleInputChange}
         onKeyDown={handleKeyDown}
       />
 
-      <button type="button" className="search-button" onClick={handleClick}>
+      <button
+        type="button"
+        className={styles.searchButton}
+        onClick={handleClick}
+      >
         Search
       </button>
     </div>

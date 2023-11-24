@@ -24,7 +24,7 @@
   min-width: max-content;
 }
 
-.details__image-container {
+.details__imageContainer {
   margin-bottom: 15px;
 }
 
@@ -59,6 +59,6 @@
   transform: scale(0.9);
 }
 
-p {
+/* p {
   padding: 5px 0;
-}
+} */

@@ -5,11 +5,12 @@ import ProductCard from '../ProductCard/ProductCard';
 import { useAppContext } from '../context/appContext';
 import ProductDetails from '../ProductDetails/ProductDetails';
 import { AppDispatch, RootState } from '../../state/store';
-// import './ProductList.css';
 import Loader from '../Loader/Loader';
 import { useGetProductsQuery } from '../../state/appApi';
 import { Product } from '../../types/types';
 import { setProductListLoadingState } from '../../state/productListLoadingState/productListLoadingState';
+import styles from './ProductList.module.css';
+import detailsStyles from '../ProductDetails/ProductDetails.module.css';
 
 export default function ProductList() {
   const [isDetailsVisible, setDetailsVisibility] = useState(false);
@@ -42,7 +43,7 @@ export default function ProductList() {
   // const navigate = useNavigate();
 
   const hideDetails = () => {
-    setDetailsStyleClasses('details');
+    setDetailsStyleClasses(detailsStyles.details);
 
     setTimeout(() => {
       setDetailsVisibility(false);
@@ -52,7 +53,9 @@ export default function ProductList() {
   const showDetails = () => {
     setDetailsVisibility(true);
     setTimeout(() => {
-      setDetailsStyleClasses('details details_visible');
+      setDetailsStyleClasses(
+        `${detailsStyles.details} ${detailsStyles.details_visible}`
+      );
     });
   };
 
@@ -67,7 +70,7 @@ export default function ProductList() {
   return (
     <>
       <section
-        className="results"
+        className={styles.results}
         onClick={() => {
           if (isDetailsVisible) {
             hideDetails();
@@ -75,7 +78,9 @@ export default function ProductList() {
         }}
       >
         {isLoading && <Loader />}
-        {!data?.products.length && <p className="no-results">No results</p>}
+        {!data?.products.length && (
+          <p className={styles.noResults}>No results</p>
+        )}
         {data &&
           data.products.map((product: Product) => (
             <ProductCard

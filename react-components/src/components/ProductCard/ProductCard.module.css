@@ -23,7 +23,7 @@
   transform: scale(1);
 }
 
-.card__image-container {
+.card__imageContainer {
   display: flex;
   width: 55%;
 }

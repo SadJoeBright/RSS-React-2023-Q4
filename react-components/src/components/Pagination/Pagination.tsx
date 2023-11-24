@@ -2,9 +2,9 @@
 import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/appContext';
-// import './Pagination.css';
 import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
+import styles from './Pagination.module.css';
 
 export default function Pagination() {
   const { currentPage, setCurrentPage } = useAppContext();
@@ -60,10 +60,10 @@ export default function Pagination() {
   };
 
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <button
         disabled={currentPage === 1}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheFirstPage}
         data-testid="firstPageButton"
@@ -73,18 +73,18 @@ export default function Pagination() {
 
       <button
         disabled={currentPage === 1}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toThePrevPage}
       >
         &lt;
       </button>
 
-      <span className="current-page">{currentPage}</span>
+      <span className={styles.currentPage}>{currentPage}</span>
 
       <button
         disabled={currentPage === maxPage}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheNextPage}
         data-testid="nextPageButton"
@@ -94,7 +94,7 @@ export default function Pagination() {
 
       <button
         disabled={currentPage === maxPage}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheLastPage}
       >

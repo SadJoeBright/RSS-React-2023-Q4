@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useAppContext } from '../context/appContext';
 import { RootState, AppDispatch } from '../../state/store';
 import { setItemsPerPage } from '../../state/itemsPerPage/itemsPerPageSlice';
-// import './ItemsAmount.css';
+import styles from './ItemsAmount.module.css';
 
 export default function ItemsAmount() {
   const { setCurrentPage } = useAppContext();
@@ -29,7 +29,7 @@ export default function ItemsAmount() {
     <div>
       <select
         placeholder="Per page"
-        className="items-amount"
+        className={styles.itemsAmount}
         onChange={handleSelectChange}
         value={itemsPerPage}
       >
