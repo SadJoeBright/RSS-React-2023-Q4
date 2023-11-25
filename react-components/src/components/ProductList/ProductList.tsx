@@ -5,10 +5,10 @@ import ProductCard from '../ProductCard/ProductCard';
 import { useAppContext } from '../context/appContext';
 import { AppDispatch, RootState } from '../../state/store';
 import Loader from '../Loader/Loader';
-import { useGetProductsQuery } from '../../state/appApi';
 import { Product } from '../../types/types';
 import { setProductListLoadingState } from '../../state/productListLoadingState/productListLoadingState';
 import styles from './ProductList.module.css';
+import { useGetProductsQuery } from '../../state/appApi';
 
 export default function ProductList() {
   const searchValue = useSelector(
@@ -38,6 +38,13 @@ export default function ProductList() {
 
   const router = useRouter();
 
+  const toDetailsPage = (product: Product) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, id: product.id },
+    });
+  };
+
   return (
     <section className={styles.results}>
       {isLoading && <Loader />}
@@ -47,12 +54,7 @@ export default function ProductList() {
           <ProductCard
             key={product.id}
             product={product}
-            clickHandler={() => {
-              router.push({
-                pathname: router.pathname,
-                query: { ...router.query, id: product.id },
-              });
-            }}
+            clickHandler={() => toDetailsPage(product)}
           />
         ))}
     </section>

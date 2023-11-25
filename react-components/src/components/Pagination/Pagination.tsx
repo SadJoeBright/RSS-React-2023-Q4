@@ -26,10 +26,6 @@ export default function Pagination() {
 
   const router = useRouter();
 
-  // useEffect(() => {
-  //   console.log(router);
-  // });
-
   const updatePageInURL = (newPage: number) => {
     router.push({
       pathname: router.pathname,
@@ -45,6 +41,10 @@ export default function Pagination() {
       setMaxPage(1);
     }
   });
+
+  useEffect(() => {
+    setCurrentPage(1);
+  }, [searchValue]);
 
   const toTheFirstPage = () => {
     setCurrentPage(1);

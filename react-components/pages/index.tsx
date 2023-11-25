@@ -4,6 +4,41 @@ import ProductList from '../src/components/ProductList/ProductList';
 import './global.module.css';
 import ProductDetails from '../src/components/ProductDetails/ProductDetails';
 import detailsStyles from '../src/components/ProductDetails/ProductDetails.module.css';
+import {
+  getProducts,
+  getDetails,
+  getRunningQueriesThunk,
+} from '../src/state/appApi';
+import { wrapper } from '../src/state/store';
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  (store) => async (context) => {
+    const { currentPage, itemsPerPage, searchValue } = context.query;
+    const { id: routeId } = context.query;
+
+    try {
+      if (routeId) {
+        await store.dispatch(getDetails.initiate(Number(routeId)));
+      } else {
+        await store.dispatch(
+          getProducts.initiate({
+            currentPage: currentPage ? +currentPage : 1,
+            itemsPerPage: itemsPerPage ? +itemsPerPage : 5,
+            searchValue: searchValue?.toString() || '',
+          })
+        );
+      }
+
+      await Promise.all(store.dispatch(getRunningQueriesThunk()));
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    }
+
+    return {
+      props: {},
+    };
+  }
+);
 
 function Home() {
   const router = useRouter();
@@ -19,7 +54,7 @@ function Home() {
         pathname: router.pathname,
         query: queryParams,
       });
-    }, 300);
+    }, 200);
   };
 
   useEffect(() => {
