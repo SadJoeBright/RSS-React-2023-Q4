@@ -1,24 +1,49 @@
-import { Provider } from 'react-redux';
-import Header from '../src/components/Header/Header';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 import ProductList from '../src/components/ProductList/ProductList';
-import { store } from '../src/state/store';
-import { AppProvider } from '../src/components/context/appContext';
 import './global.module.css';
+import ProductDetails from '../src/components/ProductDetails/ProductDetails';
+import detailsStyles from '../src/components/ProductDetails/ProductDetails.module.css';
 
-function App() {
+function Home() {
+  const router = useRouter();
+  const { id: routeId } = router.query;
+  const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
+
+  const hideDetails = () => {
+    setDetailsStyleClasses(detailsStyles.details);
+
+    setTimeout(() => {
+      const { id, ...queryParams } = router.query;
+      router.replace({
+        pathname: router.pathname,
+        query: queryParams,
+      });
+    }, 300);
+  };
+
+  useEffect(() => {
+    if (routeId) {
+      setTimeout(() => {
+        setDetailsStyleClasses(
+          `${detailsStyles.details} ${detailsStyles.details_visible}`
+        );
+      });
+    }
+  }, [routeId]);
+
   return (
-    // <BrowserRouter>
-    <AppProvider>
-      <Provider store={store}>
-        <Header />
-        <main>
-          <ProductList />
-          {/* <Route path="*" element={<NotFoundPage />} /> */}
-        </main>
-      </Provider>
-    </AppProvider>
-    // </BrowserRouter>
+    <div>
+      <ProductList />
+      {routeId && (
+        <ProductDetails
+          productId={Number(routeId)}
+          handleClick={hideDetails}
+          styleClasses={detailsStyleClasses}
+        />
+      )}
+    </div>
   );
 }
 
-export default App;
+export default Home;

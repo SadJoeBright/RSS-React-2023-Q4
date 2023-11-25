@@ -1,12 +1,12 @@
 /* eslint-disable react/jsx-no-constructed-context-values */
+import { useRouter } from 'next/router';
 import React, {
   createContext,
   useContext,
   ReactNode,
   useState,
-  // useEffect,
+  useEffect,
 } from 'react';
-// import { useSearchParams } from 'react-router-dom';
 import { Product } from '../../types/types';
 
 interface AppContextProps {
@@ -22,14 +22,14 @@ export const AppProvider: React.FC<{ children: ReactNode }> =
   function AppProvider({ children }) {
     const [results, setResults] = useState<Product[]>([]);
 
-    // const [searchParams] = useSearchParams();
-    // const urlPage = Number(searchParams.get('page'));
+    const router = useRouter();
+    const urlPage = router.query.page;
 
     const [currentPage, setCurrentPage] = useState(1);
 
-    // useEffect(() => {
-    //   setCurrentPage(urlPage || 1);
-    // }, [searchParams]);
+    useEffect(() => {
+      setCurrentPage(Number(urlPage) || 1);
+    }, [urlPage]);
 
     return (
       <AppContext.Provider

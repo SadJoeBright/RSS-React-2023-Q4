@@ -1,5 +1,5 @@
-// import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import { useAppContext } from '../context/appContext';
 import { RootState } from '../../state/store';
@@ -24,6 +24,19 @@ export default function Pagination() {
     currentPage,
   });
 
+  const router = useRouter();
+
+  // useEffect(() => {
+  //   console.log(router);
+  // });
+
+  const updatePageInURL = (newPage: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: newPage },
+    });
+  };
+
   useEffect(() => {
     if (data?.total) {
       const itemsTotalCount = data.total;
@@ -33,29 +46,27 @@ export default function Pagination() {
     }
   });
 
-  // const navigate = useNavigate();
-
   const toTheFirstPage = () => {
     setCurrentPage(1);
-    // navigate(`products/?page=1`);
+    updatePageInURL(1);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
-      // navigate(`products/?page=${currentPage - 1}`);
+      updatePageInURL(currentPage - 1);
       setCurrentPage(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
-      // navigate(`products/?page=${currentPage + 1}`);
+      updatePageInURL(currentPage + 1);
       setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
-    // navigate(`products/?page=${maxPage}`);
+    updatePageInURL(maxPage);
     setCurrentPage(maxPage);
   };
 
