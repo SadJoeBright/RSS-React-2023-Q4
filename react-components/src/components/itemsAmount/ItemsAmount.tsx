@@ -1,6 +1,6 @@
 // import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 import { RootState, AppDispatch } from '../../state/store';
 import { setItemsPerPage } from '../../state/itemsPerPage/itemsPerPageSlice';
 import styles from './ItemsAmount.module.css';

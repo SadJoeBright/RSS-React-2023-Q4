@@ -21,6 +21,6 @@
     "incremental": true,
     "plugins": [{ "name": "next" }]
   },
-  "include": ["pages", "src", "./dist/types/**/*.ts", "./next-env.d.ts", ".eslintrc.cjs", "next.config.mjs"],
+  "include": ["src", "./dist/types/**/*.ts", "./next-env.d.ts", ".eslintrc.cjs", "next.config.mjs"],
   "exclude": ["./node_modules"]
 }

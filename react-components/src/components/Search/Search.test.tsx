@@ -4,7 +4,7 @@ import { expect, it, describe } from 'vitest';
 import { Provider } from 'react-redux';
 import Search from './Search';
 import { store } from '../../state/store';
-import { AppProvider } from '../context/appContext';
+import { AppProvider } from '../../context/appContext';
 
 describe('Search component', () => {
   it('handles input changes and clicking search button', () => {

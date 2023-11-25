@@ -2,7 +2,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import ProductCard from '../ProductCard/ProductCard';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 import { AppDispatch, RootState } from '../../state/store';
 import Loader from '../Loader/Loader';
 import { Product } from '../../types/types';

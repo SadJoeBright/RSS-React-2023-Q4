@@ -1,7 +1,7 @@
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAppContext } from '../context/appContext';
+import { useAppContext } from '../../context/appContext';
 import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
 import styles from './Pagination.module.css';

@@ -7,7 +7,7 @@ import React, {
   useState,
   useEffect,
 } from 'react';
-import { Product } from '../../types/types';
+import { Product } from '../types/types';
 
 interface AppContextProps {
   results: Product[];

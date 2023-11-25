@@ -1,15 +1,14 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import ProductList from '../src/components/ProductList/ProductList';
-import './global.module.css';
-import ProductDetails from '../src/components/ProductDetails/ProductDetails';
-import detailsStyles from '../src/components/ProductDetails/ProductDetails.module.css';
+import ProductList from '../components/ProductList/ProductList';
+import ProductDetails from '../components/ProductDetails/ProductDetails';
+import detailsStyles from '../components/ProductDetails/ProductDetails.module.css';
 import {
   getProducts,
   getDetails,
   getRunningQueriesThunk,
-} from '../src/state/appApi';
-import { wrapper } from '../src/state/store';
+} from '../state/appApi';
+import { wrapper } from '../state/store';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -48,13 +47,13 @@ function Home() {
   const hideDetails = () => {
     setDetailsStyleClasses(detailsStyles.details);
 
-    setTimeout(() => {
-      const { id, ...queryParams } = router.query;
-      router.replace({
-        pathname: router.pathname,
-        query: queryParams,
-      });
-    }, 200);
+    // setTimeout(() => {
+    const { id, ...queryParams } = router.query;
+    router.replace({
+      pathname: router.pathname,
+      query: queryParams,
+    });
+    // });
   };
 
   useEffect(() => {
@@ -68,7 +67,7 @@ function Home() {
   }, [routeId]);
 
   return (
-    <div>
+    <div className="main">
       <ProductList />
       {routeId && (
         <ProductDetails

@@ -2,8 +2,7 @@ import { fireEvent, render, renderHook, screen } from '@testing-library/react';
 import { it, describe, expect } from 'vitest';
 import { BrowserRouter } from 'react-router-dom';
 import { ReactNode } from 'react';
-import { AppProvider, useAppContext } from '../context/appContext';
-import App from '../../App';
+import { AppProvider, useAppContext } from '../../context/appContext';
 
 interface TestWrapperProps {
   children: ReactNode;
@@ -25,9 +24,7 @@ describe('Pagination test', () => {
 
     render(
       <BrowserRouter>
-        <AppProvider>
-          <App />
-        </AppProvider>
+        <AppProvider>{/* <App /> */}</AppProvider>
       </BrowserRouter>
     );
 
@@ -51,9 +48,7 @@ describe('Pagination test', () => {
     }
     render(
       <BrowserRouter>
-        <AppProvider>
-          <App />
-        </AppProvider>
+        <AppProvider>{/* <App /> */}</AppProvider>
       </BrowserRouter>
     );
     const firsPageButton = screen.getByTestId('firstPageButton');
