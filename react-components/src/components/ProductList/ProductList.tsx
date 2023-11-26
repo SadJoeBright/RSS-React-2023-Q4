@@ -10,16 +10,9 @@ import styles from './ProductList.module.css';
 import { useGetProductsQuery } from '../../state/appApi';
 
 export default function ProductList() {
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
-
-  const itemsPerPage = useSelector(
-    (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
-
   const router = useRouter();
-
+  const searchValue = router.query.search?.toString() || '';
+  const itemsPerPage = Number(router.query.size) || 5;
   const currentPage = Number(router.query.page) || 1;
 
   const { data, isFetching } = useGetProductsQuery({

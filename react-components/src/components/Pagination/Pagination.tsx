@@ -1,26 +1,22 @@
-import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
 import styles from './Pagination.module.css';
 
 export default function Pagination() {
   const router = useRouter();
-  const currentPage = Number(router.query.page) || 1;
-  const [maxPage, setMaxPage] = useState(1);
 
   const itemsPerPage = Number(router.query.size) || 5;
-
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
+  const searchValue = router.query.search?.toString() || '';
+  const currentPage = Number(router.query.page) || 1;
 
   const { data } = useGetProductsQuery({
     searchValue,
     itemsPerPage,
     currentPage,
   });
+
+  const [maxPage, setMaxPage] = useState(1);
 
   const updatePageInURL = (newPage: number) => {
     router.push({

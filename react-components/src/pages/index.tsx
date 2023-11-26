@@ -16,17 +16,15 @@ export const getServerSideProps = wrapper.getServerSideProps(
     const { id: routeId } = context.query;
 
     try {
-      if (routeId) {
-        await store.dispatch(getDetails.initiate(Number(routeId)));
-      } else {
-        await store.dispatch(
-          getProducts.initiate({
-            currentPage: page ? +page : 1,
-            itemsPerPage: size ? +size : 5,
-            searchValue: search?.toString() || '',
-          })
-        );
-      }
+      await store.dispatch(
+        getProducts.initiate({
+          currentPage: page ? +page : 1,
+          itemsPerPage: size ? +size : 5,
+          searchValue: search?.toString() || '',
+        })
+      );
+
+      await store.dispatch(getDetails.initiate(Number(routeId)));
 
       await Promise.all(store.dispatch(getRunningQueriesThunk()));
     } catch (error) {
@@ -45,14 +43,12 @@ function Home() {
   const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
 
   const hideDetails = () => {
-    // setTimeout(() => {
     const { id, ...queryParams } = router.query;
     router.replace({
       pathname: router.pathname,
       query: queryParams,
     });
     setDetailsStyleClasses(detailsStyles.details);
-    // });
   };
 
   useEffect(() => {
