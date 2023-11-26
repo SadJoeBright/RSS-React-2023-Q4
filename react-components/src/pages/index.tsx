@@ -14,7 +14,6 @@ export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
     const { page, size, search } = context.query;
     const { id: routeId } = context.query;
-    console.log(context.query);
 
     try {
       if (routeId) {
