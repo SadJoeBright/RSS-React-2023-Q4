@@ -1,35 +1,23 @@
-import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
-import { useAppContext } from '../context/appContext';
-import { RootState, AppDispatch } from '../../state/store';
-import { setItemsPerPage } from '../../state/itemsPerPage/itemsPerPageSlice';
-import './ItemsAmount.css';
+import { useRouter } from 'next/router';
+import styles from './ItemsAmount.module.css';
 
 export default function ItemsAmount() {
-  const { setCurrentPage } = useAppContext();
+  const router = useRouter();
 
-  const itemsPerPage = useSelector(
-    (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
-
-  const dispatch = useDispatch<AppDispatch>();
-
-  const navigate = useNavigate();
+  const itemsPerPage = Number(router.query.size) || 5;
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValue = Number(event.target.value);
-    dispatch(setItemsPerPage(selectedValue));
-    localStorage.setItem('itemsPerPage', selectedValue.toString());
-
-    setCurrentPage(1);
-    navigate('products/?page=1');
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: 1, size: selectedValue },
+    });
   };
 
   return (
     <div>
       <select
-        placeholder="Per page"
-        className="items-amount"
+        className={styles.itemsAmount}
         onChange={handleSelectChange}
         value={itemsPerPage}
       >

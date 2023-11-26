@@ -1,5 +1,5 @@
 import { Product } from '../../types/types';
-import './ProductCard.css';
+import styles from './ProductCard.module.css';
 
 interface ProductCardProps {
   product: Product;
@@ -11,11 +11,11 @@ export default function ProductCard({
   clickHandler,
 }: ProductCardProps) {
   return (
-    <div className="card" onClick={clickHandler}>
+    <div className={styles.card} onClick={clickHandler}>
       <h4>{product.title}</h4>
-      <div className="card__image-container">
+      <div className={styles.card__imageContainer}>
         <img
-          className="card__image"
+          className={styles.card__image}
           src={product.images[0]}
           alt={product.title}
         />

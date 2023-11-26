@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 const initialState = {
-  itemsPerPage: Number(localStorage.getItem('itemsPerPage')) || 5,
+  itemsPerPage: 5,
 };
 
 const itemsPerPageSlice = createSlice({

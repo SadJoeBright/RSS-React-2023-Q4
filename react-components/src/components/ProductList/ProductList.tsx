@@ -1,30 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import ProductCard from '../ProductCard/ProductCard';
-import { useAppContext } from '../context/appContext';
-import ProductDetails from '../ProductDetails/ProductDetails';
 import { AppDispatch, RootState } from '../../state/store';
-import './ProductList.css';
 import Loader from '../Loader/Loader';
-import { useGetProductsQuery } from '../../state/appApi';
 import { Product } from '../../types/types';
 import { setProductListLoadingState } from '../../state/productListLoadingState/productListLoadingState';
+import styles from './ProductList.module.css';
+import { useGetProductsQuery } from '../../state/appApi';
 
 export default function ProductList() {
-  const [isDetailsVisible, setDetailsVisibility] = useState(false);
-  const [cardID, setCardID] = useState(0);
-  const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
-
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
-
-  const itemsPerPage = useSelector(
-    (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
-
-  const { currentPage } = useAppContext();
+  const router = useRouter();
+  const searchValue = router.query.search?.toString() || '';
+  const itemsPerPage = Number(router.query.size) || 5;
+  const currentPage = Number(router.query.page) || 1;
 
   const { data, isFetching } = useGetProductsQuery({
     searchValue,
@@ -37,64 +26,29 @@ export default function ProductList() {
   );
 
   const dispatch = useDispatch<AppDispatch>();
-  dispatch(setProductListLoadingState(isFetching));
+  useEffect(() => {
+    dispatch(setProductListLoadingState(isFetching));
+  }, [isFetching]);
 
-  const navigate = useNavigate();
-
-  const hideDetails = () => {
-    setDetailsStyleClasses('details');
-
-    setTimeout(() => {
-      setDetailsVisibility(false);
-    }, 300);
-  };
-
-  const showDetails = () => {
-    setDetailsVisibility(true);
-    setTimeout(() => {
-      setDetailsStyleClasses('details details_visible');
+  const toDetailsPage = (product: Product) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, id: product.id },
     });
   };
 
-  useEffect(() => {
-    if (isDetailsVisible) {
-      navigate(`/products/?page=${currentPage}&productID=${cardID}`);
-    } else {
-      navigate(`/products/?page=${currentPage}`);
-    }
-  }, [isDetailsVisible, cardID]);
-
   return (
-    <>
-      <section
-        className="results"
-        onClick={() => {
-          if (isDetailsVisible) {
-            hideDetails();
-          }
-        }}
-      >
-        {isLoading && <Loader />}
-        {!data?.products.length && <p className="no-results">No results</p>}
-        {data &&
-          data.products.map((product: Product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              clickHandler={() => {
-                setCardID(product.id);
-                showDetails();
-              }}
-            />
-          ))}
-      </section>
-      {isDetailsVisible && (
-        <ProductDetails
-          handleClick={hideDetails}
-          productId={cardID}
-          styleClasses={detailsStyleClasses}
-        />
-      )}
-    </>
+    <section className={styles.results}>
+      {isLoading && <Loader />}
+      {!data?.products.length && <p className={styles.noResults}>No results</p>}
+      {data &&
+        data.products.map((product: Product) => (
+          <ProductCard
+            key={product.id}
+            product={product}
+            clickHandler={() => toDetailsPage(product)}
+          />
+        ))}
+    </section>
   );
 }

@@ -1,47 +1,38 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../state/store';
-import { setSearchValue } from '../../state/searchValue/searchValueSlice';
-import './Search.css';
+import { ChangeEvent, useState } from 'react';
+import { useRouter } from 'next/router';
+import styles from './Search.module.css';
 
 export default function Search() {
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
+  const router = useRouter();
 
+  const searchValue = router.query.search || '';
   const [currentSearchValue, setCurrentSearchValue] = useState(searchValue);
-
-  const dispatch = useDispatch<AppDispatch>();
 
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
     setCurrentSearchValue(value);
-    window.localStorage.setItem('searchValue', value);
   }
 
-  const handleClick = () => {
-    dispatch(setSearchValue(currentSearchValue));
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, search: currentSearchValue },
+    });
   };
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
-    if (event.key === 'Enter') {
-      dispatch(setSearchValue(currentSearchValue));
-    }
-  }
-
   return (
-    <div className="search">
+    <form className={styles.search} onSubmit={(event) => handleSubmit(event)}>
       <input
-        className="input"
+        className={styles.input}
         type="text"
         value={currentSearchValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
       />
 
-      <button type="button" className="search-button" onClick={handleClick}>
+      <button type="submit" className={styles.searchButton}>
         Search
       </button>
-    </div>
+    </form>
   );
 }

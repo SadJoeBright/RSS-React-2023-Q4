@@ -1,28 +1,29 @@
-import { useNavigate } from 'react-router-dom';
-import { useSelector } from 'react-redux';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAppContext } from '../context/appContext';
-import './Pagination.css';
-import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
+import styles from './Pagination.module.css';
 
 export default function Pagination() {
-  const { currentPage, setCurrentPage } = useAppContext();
-  const [maxPage, setMaxPage] = useState(1);
+  const router = useRouter();
 
-  const itemsPerPage = useSelector(
-    (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
-
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
+  const itemsPerPage = Number(router.query.size) || 5;
+  const searchValue = router.query.search?.toString() || '';
+  const currentPage = Number(router.query.page) || 1;
 
   const { data } = useGetProductsQuery({
     searchValue,
     itemsPerPage,
     currentPage,
   });
+
+  const [maxPage, setMaxPage] = useState(1);
+
+  const updatePageInURL = (newPage: number) => {
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, page: newPage },
+    });
+  };
 
   useEffect(() => {
     if (data?.total) {
@@ -33,37 +34,37 @@ export default function Pagination() {
     }
   });
 
-  const navigate = useNavigate();
+  useEffect(() => {
+    if (router.query.search) {
+      updatePageInURL(1);
+    }
+  }, [router.query.search]);
 
   const toTheFirstPage = () => {
-    setCurrentPage(1);
-    navigate(`products/?page=1`);
+    updatePageInURL(1);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
-      navigate(`products/?page=${currentPage - 1}`);
-      setCurrentPage(currentPage - 1);
+      updatePageInURL(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
-      navigate(`products/?page=${currentPage + 1}`);
-      setCurrentPage(currentPage + 1);
+      updatePageInURL(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
-    navigate(`products/?page=${maxPage}`);
-    setCurrentPage(maxPage);
+    updatePageInURL(maxPage);
   };
 
   return (
-    <div className="pagination">
+    <div className={styles.pagination}>
       <button
         disabled={currentPage === 1}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheFirstPage}
         data-testid="firstPageButton"
@@ -73,18 +74,18 @@ export default function Pagination() {
 
       <button
         disabled={currentPage === 1}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toThePrevPage}
       >
         &lt;
       </button>
 
-      <span className="current-page">{currentPage}</span>
+      <span className={styles.currentPage}>{currentPage}</span>
 
       <button
         disabled={currentPage === maxPage}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheNextPage}
         data-testid="nextPageButton"
@@ -94,7 +95,7 @@ export default function Pagination() {
 
       <button
         disabled={currentPage === maxPage}
-        className="pagination__button"
+        className={styles.pagination__button}
         type="button"
         onClick={toTheLastPage}
       >

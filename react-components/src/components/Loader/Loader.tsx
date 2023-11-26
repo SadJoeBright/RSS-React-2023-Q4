@@ -1,5 +1,5 @@
 import { Circles } from 'react-loader-spinner';
-import './loader.css';
+import styles from './loader.module.css';
 
 export default function Loader() {
   return (
@@ -9,7 +9,7 @@ export default function Loader() {
       color="rgb(155, 155, 155)"
       ariaLabel="circles-loading"
       wrapperStyle={{}}
-      wrapperClass="loader"
+      wrapperClass={styles.loader}
       visible
     />
   );

@@ -4,7 +4,7 @@ import closeIcon from '../../assets/icons/Close.svg';
 import Loader from '../Loader/Loader';
 import { setDetailsLoadingState } from '../../state/detailsLoadingState/detailsLoadingState';
 import { useGetDetailsQuery } from '../../state/appApi';
-import './ProductDetails.css';
+import styles from './ProductDetails.module.css';
 
 interface DetailsProps {
   productId: number;
@@ -31,22 +31,22 @@ export default function ProductDetails({
       {isLoading && <Loader />}
       {data && (
         <>
-          <div className="details__button" onClick={handleClick}>
-            <img src={closeIcon} alt="close" />
+          <div className={styles.details__button} onClick={handleClick}>
+            <img src={closeIcon.src} alt="close" />
           </div>
-          <div className="details__container">
-            <div className="details__image-container">
+          <div className={styles.details__container}>
+            <div className={styles.details__imageContainer}>
               <img
-                className="details__image"
+                className={styles.details__image}
                 src={data.images[0]}
                 alt={data.title}
               />
             </div>
-            <div className="details__content">
+            <div className={styles.details__content}>
               <h2>{data.title}</h2>
               <p>{data.brand}</p>
               <p>{data.description}</p>
-              <p className="item__prop">{data.category}</p>
+              <p>{data.category}</p>
             </div>
           </div>
         </>
