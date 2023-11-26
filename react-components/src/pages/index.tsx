@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
+import Head from 'next/head';
+import { wrapper } from '../state/store';
 import ProductList from '../components/ProductList/ProductList';
 import ProductDetails from '../components/ProductDetails/ProductDetails';
 import detailsStyles from '../components/ProductDetails/ProductDetails.module.css';
@@ -8,7 +10,6 @@ import {
   getDetails,
   getRunningQueriesThunk,
 } from '../state/appApi';
-import { wrapper } from '../state/store';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
@@ -63,6 +64,9 @@ function Home() {
 
   return (
     <div className="main">
+      <Head>
+        <title>RSS-React-2023-Q4</title>
+      </Head>
       <ProductList />
       {routeId && (
         <ProductDetails
