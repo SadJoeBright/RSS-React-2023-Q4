@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import ProductCard from '../ProductCard/ProductCard';
-import { useAppContext } from '../../context/appContext';
 import { AppDispatch, RootState } from '../../state/store';
 import Loader from '../Loader/Loader';
 import { Product } from '../../types/types';
@@ -19,7 +18,9 @@ export default function ProductList() {
     (state: RootState) => state.itemsPerPage.itemsPerPage
   );
 
-  const { currentPage } = useAppContext();
+  const router = useRouter();
+
+  const currentPage = Number(router.query.page) || 1;
 
   const { data, isFetching } = useGetProductsQuery({
     searchValue,
@@ -35,8 +36,6 @@ export default function ProductList() {
   useEffect(() => {
     dispatch(setProductListLoadingState(isFetching));
   }, [isFetching]);
-
-  const router = useRouter();
 
   const toDetailsPage = (product: Product) => {
     router.push({
