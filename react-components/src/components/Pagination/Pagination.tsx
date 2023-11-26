@@ -1,18 +1,16 @@
 import { useSelector } from 'react-redux';
 import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
-import { useAppContext } from '../../context/appContext';
 import { RootState } from '../../state/store';
 import { useGetProductsQuery } from '../../state/appApi';
 import styles from './Pagination.module.css';
 
 export default function Pagination() {
-  const { currentPage, setCurrentPage } = useAppContext();
+  const router = useRouter();
+  const currentPage = Number(router.query.page) || 1;
   const [maxPage, setMaxPage] = useState(1);
 
-  const itemsPerPage = useSelector(
-    (state: RootState) => state.itemsPerPage.itemsPerPage
-  );
+  const itemsPerPage = Number(router.query.size) || 5;
 
   const searchValue = useSelector(
     (state: RootState) => state.searchValue.searchValue
@@ -23,8 +21,6 @@ export default function Pagination() {
     itemsPerPage,
     currentPage,
   });
-
-  const router = useRouter();
 
   const updatePageInURL = (newPage: number) => {
     router.push({
@@ -43,31 +39,29 @@ export default function Pagination() {
   });
 
   useEffect(() => {
-    setCurrentPage(1);
-  }, [searchValue]);
+    if (router.query.search) {
+      updatePageInURL(1);
+    }
+  }, [router.query.search]);
 
   const toTheFirstPage = () => {
-    setCurrentPage(1);
     updatePageInURL(1);
   };
 
   const toThePrevPage = () => {
     if (currentPage > 1) {
       updatePageInURL(currentPage - 1);
-      setCurrentPage(currentPage - 1);
     }
   };
 
   const toTheNextPage = () => {
     if (currentPage < maxPage) {
       updatePageInURL(currentPage + 1);
-      setCurrentPage(currentPage + 1);
     }
   };
 
   const toTheLastPage = () => {
     updatePageInURL(maxPage);
-    setCurrentPage(maxPage);
   };
 
   return (

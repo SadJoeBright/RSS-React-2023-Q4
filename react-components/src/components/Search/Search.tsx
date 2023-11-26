@@ -1,14 +1,13 @@
-import { ChangeEvent, KeyboardEvent, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { AppDispatch, RootState } from '../../state/store';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useRouter } from 'next/router';
+import { AppDispatch } from '../../state/store';
 import { setSearchValue } from '../../state/searchValue/searchValueSlice';
 import styles from './Search.module.css';
 
 export default function Search() {
-  const searchValue = useSelector(
-    (state: RootState) => state.searchValue.searchValue
-  );
-
+  const router = useRouter();
+  const searchValue = router.query.search || '';
   const [currentSearchValue, setCurrentSearchValue] = useState(searchValue);
 
   const dispatch = useDispatch<AppDispatch>();
@@ -16,36 +15,32 @@ export default function Search() {
   function handleInputChange(event: ChangeEvent<HTMLInputElement>): void {
     const { value } = event.target;
     setCurrentSearchValue(value);
-    window.localStorage.setItem('searchValue', value);
   }
 
-  const handleClick = () => {
-    dispatch(setSearchValue(currentSearchValue));
+  useEffect(() => {
+    dispatch(setSearchValue(currentSearchValue.toString()));
+  }, [router.query]);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    router.push({
+      pathname: router.pathname,
+      query: { ...router.query, search: currentSearchValue },
+    });
   };
 
-  function handleKeyDown(event: KeyboardEvent<HTMLInputElement>): void {
-    if (event.key === 'Enter') {
-      dispatch(setSearchValue(currentSearchValue));
-    }
-  }
-
   return (
-    <div className={styles.search}>
+    <form className={styles.search} onSubmit={(event) => handleSubmit(event)}>
       <input
         className={styles.input}
         type="text"
         value={currentSearchValue}
         onChange={handleInputChange}
-        onKeyDown={handleKeyDown}
       />
 
-      <button
-        type="button"
-        className={styles.searchButton}
-        onClick={handleClick}
-      >
+      <button type="submit" className={styles.searchButton}>
         Search
       </button>
-    </div>
+    </form>
   );
 }

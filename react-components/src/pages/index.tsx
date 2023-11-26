@@ -12,8 +12,9 @@ import { wrapper } from '../state/store';
 
 export const getServerSideProps = wrapper.getServerSideProps(
   (store) => async (context) => {
-    const { currentPage, itemsPerPage, searchValue } = context.query;
+    const { page, size, search } = context.query;
     const { id: routeId } = context.query;
+    console.log(context.query);
 
     try {
       if (routeId) {
@@ -21,9 +22,9 @@ export const getServerSideProps = wrapper.getServerSideProps(
       } else {
         await store.dispatch(
           getProducts.initiate({
-            currentPage: currentPage ? +currentPage : 1,
-            itemsPerPage: itemsPerPage ? +itemsPerPage : 5,
-            searchValue: searchValue?.toString() || '',
+            currentPage: page ? +page : 1,
+            itemsPerPage: size ? +size : 5,
+            searchValue: search?.toString() || '',
           })
         );
       }
@@ -45,14 +46,13 @@ function Home() {
   const [detailsStyleClasses, setDetailsStyleClasses] = useState('details');
 
   const hideDetails = () => {
-    setDetailsStyleClasses(detailsStyles.details);
-
     // setTimeout(() => {
     const { id, ...queryParams } = router.query;
     router.replace({
       pathname: router.pathname,
       query: queryParams,
     });
+    setDetailsStyleClasses(detailsStyles.details);
     // });
   };
 
