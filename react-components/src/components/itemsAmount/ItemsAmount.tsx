@@ -12,7 +12,9 @@ export default function ItemsAmount() {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
-    dispatch(setItemsPerPage(Number(router.query.size)));
+    if (router.query.size) {
+      dispatch(setItemsPerPage(Number(router.query.size)));
+    }
   }, [router.query.size]);
 
   const handleSelectChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
