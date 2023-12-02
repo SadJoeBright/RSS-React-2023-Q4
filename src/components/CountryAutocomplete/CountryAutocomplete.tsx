@@ -1,6 +1,8 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import '../UncontrolledForm/UncontrolledForm.css';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../store/store';
 
 interface CountryAutocompleteProps {
   inputRef?: React.RefObject<HTMLInputElement>;
@@ -9,41 +11,17 @@ interface CountryAutocompleteProps {
 export default function CountryAutocomplete({
   inputRef,
 }: CountryAutocompleteProps) {
-  const counries = [
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'Andorra',
-    'Angola',
-    'Anguilla',
-    'Antigua &amp; Barbuda',
-    'Argentina',
-    'Armenia',
-    'Aruba',
-    'Australia',
-    'Austria',
-    'Azerbaijan',
-    'Bahamas',
-    'Bahrain',
-    'Bangladesh',
-    'Barbados',
-    'Belarus',
-    'Belgium',
-    'Belize',
-    'Benin',
-    'Bermuda',
-  ];
-
   const [currentValue, setCurrentValue] = useState('');
   const [matchingCountries, setMatchingCounries] = useState<string[]>([]);
 
+  const countries = useSelector((state: RootState) => state.country);
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setCurrentValue(value);
   };
 
   useEffect(() => {
-    const matches = counries.filter(
+    const matches = countries.filter(
       (country) =>
         currentValue &&
         country.toLowerCase().startsWith(currentValue.toLocaleLowerCase())
