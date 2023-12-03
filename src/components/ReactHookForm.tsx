@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-props-no-spreading */
 import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
@@ -8,9 +7,9 @@ import { setFormData, IFormData } from '../store/formDataSlice';
 import { AppDispatch } from '../store/store';
 import readFile from '../utils/fileReader';
 import validationSchema from '../utils/validation';
-// import CountryAutocomplete from './CountryAutocomplete/CountryAutocomplete';
 import './ErrorMessage/ErrorMessge.css';
 import ErrorMessage from './ErrorMessage/ErrorMessage';
+import CountryAutocomplete from './CountryAutocomplete/CountryAutocomplete';
 
 export default function ReactHookForm() {
   const {
@@ -34,7 +33,6 @@ export default function ReactHookForm() {
     }
   };
 
-  // Используйте useEffect для отслеживания изменений значения поля пароля
   useEffect(() => {
     handlePasswordChange();
   }, [watch('password')]); //
@@ -146,17 +144,16 @@ export default function ReactHookForm() {
           <ErrorMessage message={errors.gender?.message} />
         </fieldset>
 
-        {/* <CountryAutocomplete {...register('country')} />
-         */}
-        <label className="label-text-input country" htmlFor="password">
-          <span>Country</span>
-          <input
-            {...register('country')}
-            className="text-input"
-            type="text"
-            placeholder="country"
-          />
-        </label>
+        <CountryAutocomplete
+          countryInput={
+            <input
+              {...register('country')}
+              className="text-input"
+              type="text"
+              placeholder="country"
+            />
+          }
+        />
         <ErrorMessage message={errors.country?.message} />
 
         <input

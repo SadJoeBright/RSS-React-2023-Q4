@@ -161,7 +161,16 @@ export default function UncontrolledForm() {
           <ErrorMessage errors={errors} name="gender" />
         </fieldset>
 
-        <CountryAutocomplete inputRef={countryRef} />
+        <CountryAutocomplete
+          countryInput={
+            <input
+              ref={countryRef}
+              className="text-input"
+              type="text"
+              placeholder="country"
+            />
+          }
+        />
         <ErrorMessage errors={errors} name="country" />
 
         <input ref={imageRef} type="file" accept="image/jpeg, image/png" />

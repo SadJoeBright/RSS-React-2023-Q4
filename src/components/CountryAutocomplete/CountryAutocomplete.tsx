@@ -1,26 +1,19 @@
-import React, {
-  ChangeEvent,
-  useEffect,
-  useState,
-  forwardRef,
-  Ref,
-} from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
+import '../UncontrolledForm/UncontrolledForm.css';
 
 interface CountryAutocompleteProps {
-  inputRef?: Ref<HTMLInputElement>;
+  countryInput: React.ReactNode;
 }
 
-const CountryAutocomplete = forwardRef<
-  HTMLInputElement,
-  CountryAutocompleteProps
->(({ inputRef }, ref) => {
+export default function CountryAutocomplete({
+  countryInput,
+}: CountryAutocompleteProps) {
   const [currentValue, setCurrentValue] = useState('');
-  const [matchingCountries, setMatchingCountries] = useState<string[]>([]);
+  const [matchingCountries, setMatchingCounries] = useState<string[]>([]);
 
   const countries = useSelector((state: RootState) => state.country);
-
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setCurrentValue(value);
@@ -32,48 +25,29 @@ const CountryAutocomplete = forwardRef<
         currentValue &&
         country.toLowerCase().startsWith(currentValue.toLocaleLowerCase())
     );
-    setMatchingCountries(matches);
-  }, [currentValue, countries]);
+    setMatchingCounries(matches);
+  }, [currentValue]);
 
-  const chooseCountry = (value: string) => {
+  const chooseCounry = (value: string) => {
     setCurrentValue(value);
     setTimeout(() => {
-      setMatchingCountries([]);
+      setMatchingCounries([]);
     });
   };
 
   return (
     <label className="label-text-input country" htmlFor="password">
       <span>Country</span>
-      <input
-        ref={(el) => {
-          if (typeof inputRef === 'function') {
-            inputRef(el);
-          } else if (inputRef && 'current' in inputRef) {
-            (
-              inputRef as React.MutableRefObject<HTMLInputElement | null>
-            ).current = el;
-          }
-
-          if (ref && typeof ref === 'function') {
-            ref(el);
-          } else if (ref && 'current' in ref) {
-            (ref as React.MutableRefObject<HTMLInputElement | null>).current =
-              el;
-          }
-        }}
-        className="text-input"
-        type="text"
-        placeholder="country"
-        value={currentValue}
-        onChange={handleChange}
-      />
+      {React.cloneElement(countryInput as React.ReactElement, {
+        value: currentValue,
+        onChange: handleChange,
+      })}
       <div className={matchingCountries.length ? 'countries-container' : ''}>
         {matchingCountries.map((country) => (
           <p
             className="country-row"
             key={country}
-            onClick={() => chooseCountry(country)}
+            onClick={() => chooseCounry(country)}
           >
             {country}
           </p>
@@ -81,9 +55,4 @@ const CountryAutocomplete = forwardRef<
       </div>
     </label>
   );
-});
-CountryAutocomplete.defaultProps = {
-  inputRef: { current: null },
-};
-
-export default CountryAutocomplete;
+}
