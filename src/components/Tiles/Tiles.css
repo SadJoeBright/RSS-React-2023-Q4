@@ -1,0 +1,29 @@
+.tiles-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 55px;
+}
+
+.tile {
+  width: 400px;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  border-radius: 10px;
+  text-align: left;
+  padding: 10px;
+  transition: all ease-in-out 0.2s;
+  box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
+
+  font-size: 20px;
+}
+
+img {
+  height: 150px;
+  width: 150px;
+}
+.tile:first-child {
+  box-shadow: 5px 5px 10px 3px rgb(234, 219, 151, 0.5);
+  transform: scale(1.05);
+}

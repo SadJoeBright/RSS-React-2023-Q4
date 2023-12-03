@@ -62,13 +62,11 @@ export default function UncontrolledForm() {
           image: result as string,
         };
         dispatch(setFormData(validData as unknown as IFormData));
-        console.log(validData);
         navigate('/');
       })
 
       .catch((validationErrors: ValidationError) => {
         setErrors(validationErrors.inner);
-        console.log(validationErrors.inner);
       });
 
     setErrors([]);

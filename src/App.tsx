@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './store/store';
 import MainPage from './pages/Mainpage';
-import UncontrolledForm from './components/UncontrolledForm/UcontrolledForm';
+import UncontrolledForm from './components/UncontrolledForm/UncontrolledForm';
 import ReactHookForm from './components/ReactHookForm';
 import './App.css';
 

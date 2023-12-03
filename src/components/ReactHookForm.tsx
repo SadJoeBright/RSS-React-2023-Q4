@@ -29,8 +29,6 @@ export default function ReactHookForm() {
         data.image = await readFile(imageFile[0]);
       }
 
-      console.log(data);
-
       dispatch(setFormData(data as unknown as IFormData));
       navigate('/');
     } catch (error) {
