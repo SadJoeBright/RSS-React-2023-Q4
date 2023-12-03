@@ -1,7 +1,7 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
-import '../UncontrolledForm/UncontrolledForm.css';
+import './CountryAutocomplete.css';
 
 interface CountryAutocompleteProps {
   countryInput: React.ReactNode;

@@ -34,7 +34,7 @@ export default function ReactHookForm() {
 
   useEffect(() => {
     handlePasswordChange();
-  }, [watch('password')]); //
+  }, [watch('password')]);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -56,6 +56,9 @@ export default function ReactHookForm() {
 
   return (
     <>
+      <Link className="back-link" to="/">
+        Back to main page
+      </Link>
       <form noValidate className="form" onSubmit={handleSubmit(onSubmit)}>
         <h3 className="form__heading">React Hook Form</h3>
         <label className="label-text-input" htmlFor="name">
@@ -191,7 +194,6 @@ export default function ReactHookForm() {
           Submit
         </button>
       </form>
-      <Link to="/">Back to main page</Link>
     </>
   );
 }

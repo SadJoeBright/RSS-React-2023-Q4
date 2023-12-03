@@ -30,36 +30,10 @@
   border-color: red;
 }
 
-.countries-container {
-  width: 100%;
-  max-height: 97px;
-  overflow-y: scroll;
-  scrollbar-base-color: red;
-  position: absolute;
-  top: 100%;
-  background: white;
-  box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
-  border-radius: 5px;
-  z-index: 10;
-}
-
-.country {
-  position: relative;
-}
-
-.country-row {
-  padding: 5px;
-  cursor: pointer;
-  border-bottom: solid 1px rgba(224, 224, 224, 0.5);
-}
-
-.country-row:hover {
-  background: rgb(228, 226, 226);
-}
-
 .input-checkbox,
 .input-radio {
   margin-right: 5px;
+  border: solid 1px red;
 }
 
 fieldset {
@@ -94,6 +68,7 @@ span::after {
 }
 
 button {
+  margin-top: 5px;
   padding: 5px;
   border-radius: 5px;
   border: none;
@@ -128,4 +103,18 @@ button:not(:disabled):active {
 
 .weak-password {
   color: red;
+}
+
+.back-link {
+  position: absolute;
+  top: 10px;
+  left: 10%;
+  margin-right: 150px;
+  color: rgb(118, 118, 118);
+  font-size: 20px;
+  transition: all ease-in-out 0.2s;
+}
+
+.back-link:hover {
+  color: black;
 }

@@ -87,6 +87,9 @@ export default function UncontrolledForm() {
 
   return (
     <>
+      <Link className="back-link" to="/">
+        Back to main page
+      </Link>
       <form noValidate className="form" onSubmit={handleSubmit}>
         <h3 className="form__heading">Uncontrolled Form</h3>
         <label className="label-text-input" htmlFor="name">
@@ -226,7 +229,6 @@ export default function UncontrolledForm() {
         </label>
         <button type="submit">Submit</button>
       </form>
-      <Link to="/">Back to main page</Link>
     </>
   );
 }
