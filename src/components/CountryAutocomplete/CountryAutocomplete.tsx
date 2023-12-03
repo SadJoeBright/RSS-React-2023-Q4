@@ -36,11 +36,12 @@ export default function CountryAutocomplete({
   };
 
   return (
-    <label className="label-text-input country" htmlFor="password">
+    <label className="label-text-input country" htmlFor="country">
       <span>Country</span>
       {React.cloneElement(countryInput as React.ReactElement, {
         value: currentValue,
         onChange: handleChange,
+        id: 'country',
       })}
       <div className={matchingCountries.length ? 'countries-container' : ''}>
         {matchingCountries.map((country) => (

@@ -33,11 +33,11 @@ const validationSchema = yup.object().shape({
 
   password: yup
     .string()
+    .required('This field is required. Provide a value')
     .matches(
       /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=]).{8,}$/,
       'Password must contain at least 8 characters, including 1 number, 1 lowercase letter, 1 uppercase letter, and 1 special character'
-    )
-    .required('This field is required. Provide a value'),
+    ),
 
   confirmPassword: yup
     .string()

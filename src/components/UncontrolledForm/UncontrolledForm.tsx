@@ -28,6 +28,8 @@ export default function UncontrolledForm() {
 
   const navigate = useNavigate();
 
+  const [passwordStrength, setPasswordStrength] = useState('');
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
@@ -44,6 +46,17 @@ export default function UncontrolledForm() {
       image: imageRef.current?.files,
       termsAndConditions: termsAndConditionsRef.current?.checked,
     };
+
+    const { password } = dataToValidate;
+    if (password) {
+      if (password.length >= 8) {
+        setPasswordStrength('strong');
+      } else if (password.length >= 6) {
+        setPasswordStrength('moderate');
+      } else if (password.length) {
+        setPasswordStrength('weak');
+      }
+    }
 
     validationSchema
       .validate(dataToValidate, { abortEarly: false })
@@ -119,24 +132,35 @@ export default function UncontrolledForm() {
             className="text-input"
             type="password"
             name="password"
+            id="password"
             placeholder="password"
           />
+          <div className="password-strength-container">
+            {passwordStrength && (
+              <p className={`${passwordStrength}-password`}>
+                {passwordStrength} password
+              </p>
+            )}
+          </div>
           <ErrorMessage errors={errors} name="password" />
         </label>
-        <input
-          ref={confirmPasswordRef}
-          className="text-input"
-          type="password"
-          name="confirm-password"
-          placeholder="confirm-password"
-        />
-        <ErrorMessage errors={errors} name="confirmPassword" />
+        <label className="label-text-input" htmlFor="confirm-password">
+          <span>Confirm password</span>
+          <input
+            ref={confirmPasswordRef}
+            className="text-input"
+            type="password"
+            name="confirm-password"
+            id="confirm-password"
+            placeholder="confirm-password"
+          />
+          <ErrorMessage errors={errors} name="confirmPassword" />
+        </label>
 
         <fieldset>
           <legend>
             <span> Gender</span>
           </legend>
-
           <label className="label-radio" htmlFor="male">
             <input
               ref={maleRef}
@@ -147,7 +171,6 @@ export default function UncontrolledForm() {
             />
             Male
           </label>
-
           <label className="label-radio" htmlFor="female">
             <input
               ref={femaleRef}
@@ -168,6 +191,7 @@ export default function UncontrolledForm() {
               className="text-input"
               type="text"
               placeholder="country"
+              name="country"
             />
           }
         />

@@ -25,11 +25,11 @@ export default function ReactHookForm() {
     const password = watch('password');
 
     if (password.length >= 8) {
-      setPasswordStrength('Strong');
+      setPasswordStrength('strong');
     } else if (password.length >= 6) {
-      setPasswordStrength('Moderate');
+      setPasswordStrength('moderate');
     } else if (password.length) {
-      setPasswordStrength('Weak');
+      setPasswordStrength('weak');
     }
   };
 
@@ -101,19 +101,30 @@ export default function ReactHookForm() {
             className="text-input"
             type="password"
             {...register('password')}
+            id="password"
             placeholder="password"
           />
-          {passwordStrength && <div>Password Strength: {passwordStrength}</div>}
+          <div className="password-strength-container">
+            {passwordStrength && (
+              <p className={`${passwordStrength}-password`}>
+                {passwordStrength} password
+              </p>
+            )}
+          </div>
           <ErrorMessage message={errors.password?.message} />
         </label>
 
-        <input
-          className="text-input"
-          type="password"
-          {...register('confirmPassword')}
-          placeholder="confirm-password"
-        />
-        <ErrorMessage message={errors.confirmPassword?.message} />
+        <label className="label-text-input" htmlFor="confirm-password">
+          <span>Confirm password</span>
+          <input
+            className="text-input"
+            type="password"
+            {...register('confirmPassword')}
+            placeholder="confirm-password"
+            id="confirm-password"
+          />
+          <ErrorMessage message={errors.confirmPassword?.message} />
+        </label>
 
         <fieldset>
           <legend>

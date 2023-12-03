@@ -108,3 +108,21 @@ button:not(:disabled):hover {
 button:not(:disabled):active {
   transform: scale(0.98);
 }
+
+.password-strength-container {
+  height: 20px;
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.strong-password {
+  color: green;
+}
+
+.moderate-password {
+  color: orange;
+}
+
+.weak-password {
+  color: red;
+}
