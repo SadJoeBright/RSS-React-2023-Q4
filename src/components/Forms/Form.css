@@ -1,0 +1,136 @@
+.form {
+  display: flex;
+  flex-direction: column;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 3px rgb(155, 155, 155, 0.5);
+
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: start;
+  font-size: 18px;
+}
+
+.form__heading {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.text-input {
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 2px rgb(118, 118, 118);
+  outline: none;
+
+  font-size: 20px;
+}
+
+.invalid {
+  border-color: red;
+}
+
+.input-checkbox,
+.input-radio {
+  margin-right: 5px;
+  border: solid 1px red;
+}
+
+fieldset {
+  display: flex;
+  flex-direction: column;
+  border: none;
+}
+
+.label-radio {
+  padding: 5px 10px;
+}
+
+input[type='file'] {
+  padding: 15px 2px;
+}
+
+input[type='file']::file-selector-button {
+  padding: 5px 10px;
+  margin-right: 15px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  box-shadow: 2px 2px 5px 2px rgb(155, 155, 155, 0.5);
+  transition: all ease-in-out 0.2s;
+  font-size: 18px;
+}
+
+input[type='file']::file-selector-button:hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 2px rgb(234, 219, 151);
+}
+
+.label-text-input {
+  display: flex;
+  flex-direction: column;
+  font-size: 18px;
+}
+
+span {
+  padding-bottom: 2px;
+}
+
+span::after {
+  content: '*';
+  position: relative;
+  top: 0;
+  color: red;
+}
+
+button {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 5px;
+  border: none;
+  background: white;
+  box-shadow: 2px 2px 5px 2px rgb(155, 155, 155, 0.5);
+  transition: all ease-in-out 0.2s;
+  font-size: 20px;
+}
+
+button:not(:disabled):hover {
+  cursor: pointer;
+  box-shadow: 2px 2px 5px 2px rgb(234, 219, 151);
+}
+
+button:not(:disabled):active {
+  transform: scale(0.98);
+}
+
+.password-strength-container {
+  height: 20px;
+  font-size: 14px;
+  font-weight: 550;
+}
+
+.strong-password {
+  color: green;
+}
+
+.moderate-password {
+  color: orange;
+}
+
+.weak-password {
+  color: red;
+}
+
+.back-link {
+  position: absolute;
+  top: 10px;
+  left: 10%;
+  margin-right: 150px;
+  color: rgb(118, 118, 118);
+  font-size: 20px;
+  transition: all ease-in-out 0.2s;
+}
+
+.back-link:hover {
+  color: black;
+}
