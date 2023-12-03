@@ -46,27 +46,75 @@ const validationSchema = yup.object().shape({
 
   country: yup.string().required('This field is required. Provide a value'),
 
-  gender: yup
-    .string()
-    .required('Please select your gender')
-    .oneOf(['male', 'female']),
+  gender: yup.string().required('Please select your gender'),
 
   image: yup
-    .mixed<FileObject>()
+    .mixed()
     .required('Please upload image')
     .test('fileFormat', 'Only JPEG and PNG files are allowed', (value) => {
-      if (value && value.type) {
+      if (value && (value as FileList)[0]) {
         const supportedFormats = ['image/jpeg', 'image/png'];
-        return supportedFormats.includes(value.type);
+        return supportedFormats.includes((value as FileList)[0].type);
       }
       return true;
     })
     .test('fileSize', 'File size must be less than 3MB', (value) => {
-      if (value && value.size) {
-        return value.size <= 3145728;
+      if (value && (value as FileList)[0]) {
+        return (value as FileList)[0].size <= 3145728;
       }
       return true;
-    }),
+    })
+    .required('Please upload image'),
+
+  // image: yup
+  //   .mixed()
+  //   .required('You must select an image')
+  //   .test('fileFormat', 'Invalid file format', (value) => {
+  //     if(value &&
+  //       (value as FileList)[0] &&
+  //       ['image/jpeg', 'image/png'].includes((value as FileList)[0].type);
+  //   })
+  //   .test(
+  //     'fileSize',
+  //     'File is too big',
+  //     (value) =>
+  //       value &&
+  //       (value as FileList)[0] &&
+  //       (value as FileList)[0].size <= 200 * 200
+  //   )
+  //   .required('File no choose'),
+
+  // image: yup
+  //   .mixed<FileList>()
+  //   .required('You need to provide a file')
+  //   .test('fileSize', 'File size must be less than 3MB', (value) => {
+  //     if (value && value[0] && value[0].size) {
+  //       return value[0].size <= 3145728;
+  //     }
+  //     return true;
+  //   })
+  //   // .test(
+  //   //   'type',
+  //   //   'Only JPEG, BMP, PNG, PDF, and DOC files are allowed',
+  //   //   (value) => {
+  //   //     return (
+  //   //       value &&
+  //   //       value[0] &&
+  //   //       (value[0].type === 'image/jpeg' ||
+  //   //         value[0].type === 'image/bmp' ||
+  //   //         value[0].type === 'image/png' ||
+  //   //         value[0].type === 'application/pdf' ||
+  //   //         value[0].type === 'application/msword')
+  //   //     );
+  //   //   }
+  //   // )
+  //   .test('fileFormat', 'Only JPEG and PNG files are allowed', (value) => {
+  //     if (value && value[0] && value[0].type) {
+  //       const supportedFormats = ['image/jpeg', 'image/png'];
+  //       return supportedFormats.includes(value[0].type);
+  //     }
+  //     return true;
+  //   }),
 
   termsAndConditions: yup
     .string()

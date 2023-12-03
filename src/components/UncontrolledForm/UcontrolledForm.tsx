@@ -33,7 +33,7 @@ export default function UncontrolledForm() {
 
     const dataToValidate = {
       name: nameRef.current?.value,
-      age: ageRef.current?.value,
+      age: Number(ageRef.current?.value),
       email: emailRef.current?.value,
       password: passwordRef.current?.value,
       confirmPassword: confirmPasswordRef.current?.value,
@@ -41,7 +41,7 @@ export default function UncontrolledForm() {
       gender: (maleRef.current?.checked ? 'male' : femaleRef.current?.checked)
         ? 'female'
         : null,
-      image: imageRef.current?.files?.[0],
+      image: imageRef.current?.files,
       termsAndConditions: termsAndConditionsRef.current?.checked,
     };
 
@@ -51,7 +51,7 @@ export default function UncontrolledForm() {
       .then(() => {
         const imageFile = dataToValidate.image;
         if (imageFile) {
-          return readFile(imageFile);
+          return readFile(imageFile[0]);
         }
         return null;
       })
@@ -61,13 +61,14 @@ export default function UncontrolledForm() {
           ...dataToValidate,
           image: result as string,
         };
-        dispatch(setFormData(validData as IFormData));
+        dispatch(setFormData(validData as unknown as IFormData));
         console.log(validData);
         navigate('/');
       })
 
       .catch((validationErrors: ValidationError) => {
         setErrors(validationErrors.inner);
+        console.log(validationErrors.inner);
       });
 
     setErrors([]);
@@ -87,7 +88,7 @@ export default function UncontrolledForm() {
             id="name"
             placeholder="Enter your name"
           />
-          <ErrorMessage errors={errors} path="name" />
+          <ErrorMessage errors={errors} name="name" />
         </label>
         <label className="label-text-input" htmlFor="age">
           <span>Age</span>
@@ -99,7 +100,7 @@ export default function UncontrolledForm() {
             id="age"
             placeholder="age"
           />
-          <ErrorMessage errors={errors} path="age" />
+          <ErrorMessage errors={errors} name="age" />
         </label>
         <label className="label-text-input" htmlFor="email">
           <span>E-mail</span>
@@ -108,9 +109,10 @@ export default function UncontrolledForm() {
             className="text-input"
             type="email"
             name="email"
+            id="email"
             placeholder="email"
           />
-          <ErrorMessage errors={errors} path="email" />
+          <ErrorMessage errors={errors} name="email" />
         </label>
         <label className="label-text-input" htmlFor="password">
           <span>Password</span>
@@ -121,7 +123,7 @@ export default function UncontrolledForm() {
             name="password"
             placeholder="password"
           />
-          <ErrorMessage errors={errors} path="password" />
+          <ErrorMessage errors={errors} name="password" />
         </label>
         <input
           ref={confirmPasswordRef}
@@ -130,7 +132,7 @@ export default function UncontrolledForm() {
           name="confirm-password"
           placeholder="confirm-password"
         />
-        <ErrorMessage errors={errors} path="confirmPassword" />
+        <ErrorMessage errors={errors} name="confirmPassword" />
 
         <fieldset>
           <legend>
@@ -158,14 +160,14 @@ export default function UncontrolledForm() {
             />
             Female
           </label>
-          <ErrorMessage errors={errors} path="gender" />
+          <ErrorMessage errors={errors} name="gender" />
         </fieldset>
 
         <CountryAutocomplete inputRef={countryRef} />
-        <ErrorMessage errors={errors} path="country" />
+        <ErrorMessage errors={errors} name="country" />
 
         <input ref={imageRef} type="file" accept="image/jpeg, image/png" />
-        <ErrorMessage errors={errors} path="image" />
+        <ErrorMessage errors={errors} name="image" />
 
         <label htmlFor="T&C">
           <input
@@ -176,7 +178,7 @@ export default function UncontrolledForm() {
             name="T&C"
           />
           <span>I accept all terms and conditions</span>
-          <ErrorMessage errors={errors} path="termsAndConditions" />
+          <ErrorMessage errors={errors} name="termsAndConditions" />
         </label>
         <button type="submit">Submit</button>
       </form>

@@ -1,20 +1,26 @@
-/* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
-import React, { ChangeEvent, useEffect, useState } from 'react';
-import '../UncontrolledForm/UncontrolledForm.css';
+import React, {
+  ChangeEvent,
+  useEffect,
+  useState,
+  forwardRef,
+  Ref,
+} from 'react';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../store/store';
 
 interface CountryAutocompleteProps {
-  inputRef?: React.RefObject<HTMLInputElement>;
+  inputRef?: Ref<HTMLInputElement>;
 }
 
-export default function CountryAutocomplete({
-  inputRef,
-}: CountryAutocompleteProps) {
+const CountryAutocomplete = forwardRef<
+  HTMLInputElement,
+  CountryAutocompleteProps
+>(({ inputRef }, ref) => {
   const [currentValue, setCurrentValue] = useState('');
-  const [matchingCountries, setMatchingCounries] = useState<string[]>([]);
+  const [matchingCountries, setMatchingCountries] = useState<string[]>([]);
 
   const countries = useSelector((state: RootState) => state.country);
+
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
     setCurrentValue(value);
@@ -26,13 +32,13 @@ export default function CountryAutocomplete({
         currentValue &&
         country.toLowerCase().startsWith(currentValue.toLocaleLowerCase())
     );
-    setMatchingCounries(matches);
-  }, [currentValue]);
+    setMatchingCountries(matches);
+  }, [currentValue, countries]);
 
-  const chooseCounry = (value: string) => {
+  const chooseCountry = (value: string) => {
     setCurrentValue(value);
     setTimeout(() => {
-      setMatchingCounries([]);
+      setMatchingCountries([]);
     });
   };
 
@@ -40,7 +46,22 @@ export default function CountryAutocomplete({
     <label className="label-text-input country" htmlFor="password">
       <span>Country</span>
       <input
-        ref={inputRef}
+        ref={(el) => {
+          if (typeof inputRef === 'function') {
+            inputRef(el);
+          } else if (inputRef && 'current' in inputRef) {
+            (
+              inputRef as React.MutableRefObject<HTMLInputElement | null>
+            ).current = el;
+          }
+
+          if (ref && typeof ref === 'function') {
+            ref(el);
+          } else if (ref && 'current' in ref) {
+            (ref as React.MutableRefObject<HTMLInputElement | null>).current =
+              el;
+          }
+        }}
         className="text-input"
         type="text"
         placeholder="country"
@@ -52,7 +73,7 @@ export default function CountryAutocomplete({
           <p
             className="country-row"
             key={country}
-            onClick={() => chooseCounry(country)}
+            onClick={() => chooseCountry(country)}
           >
             {country}
           </p>
@@ -60,8 +81,9 @@ export default function CountryAutocomplete({
       </div>
     </label>
   );
-}
-
+});
 CountryAutocomplete.defaultProps = {
   inputRef: { current: null },
 };
+
+export default CountryAutocomplete;

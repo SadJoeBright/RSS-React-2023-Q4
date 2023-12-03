@@ -1,9 +1,10 @@
-export default function readFile(file: File) {
+export default function readFile(file: File): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
 
     reader.onload = () => {
-      resolve(reader.result);
+      const result = reader.result as string;
+      resolve(result);
     };
 
     reader.onerror = () => {
