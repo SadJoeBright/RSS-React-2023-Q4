@@ -28,6 +28,7 @@ module.exports = {
     'no-param-reassign': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'off',
+    'react/jsx-props-no-spreading': 'off',
     'react/prefer-stateless-function': 'off',
     'comma-dangle': ['error', 'only-multiline'],
     'react/prop-types': 'off',
