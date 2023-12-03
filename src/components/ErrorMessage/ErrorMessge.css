@@ -1,7 +1,6 @@
 .error-container {
-  height: 35px;
-  padding: 5px 0;
-  /* border: solid 1px red; */
+  height: 38px;
+  padding-top: 5px;
 }
 
 .error-container_password {

@@ -1,11 +1,5 @@
 import * as yup from 'yup';
 
-interface FileObject {
-  name: string;
-  size: number;
-  type: string;
-}
-
 const validationSchema = yup.object().shape({
   name: yup
     .string()
@@ -34,9 +28,12 @@ const validationSchema = yup.object().shape({
   password: yup
     .string()
     .required('This field is required. Provide a value')
+    .matches(/^(?=.*[a-zа-я])/, 'Password must contain one Lowercase letter')
+    .matches(/^(?=.*[A-ZА-Я])/, 'Password must contain one Uppercase letter')
+    .matches(/^(?=.*[0-9])/, 'Password must contain one Number')
     .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%^&*()-_+=]).{8,}$/,
-      'Password must contain at least 8 characters, including 1 number, 1 lowercase letter, 1 uppercase letter, and 1 special character'
+      /^(?=.*[!@#%&$^*()?><|+=])/,
+      'Password must contain one Special character'
     ),
 
   confirmPassword: yup
@@ -49,72 +46,24 @@ const validationSchema = yup.object().shape({
   gender: yup.string().required('Please select your gender'),
 
   image: yup
-    .mixed()
-    .required('Please upload image')
+    .mixed<FileList>()
     .test('fileFormat', 'Only JPEG and PNG files are allowed', (value) => {
-      if (value && (value as FileList)[0]) {
+      if (value && value[0]) {
         const supportedFormats = ['image/jpeg', 'image/png'];
-        return supportedFormats.includes((value as FileList)[0].type);
+        return supportedFormats.includes(value[0].type);
       }
       return true;
     })
-    .test('fileSize', 'File size must be less than 3MB', (value) => {
-      if (value && (value as FileList)[0]) {
-        return (value as FileList)[0].size <= 3145728;
+    .test('fileSize', 'File size must be less than 1MB', (value) => {
+      if (value && value[0]) {
+        return value[0].size <= 1024000;
       }
       return true;
+    })
+    .test('isRequired', 'Please upload image', (value) => {
+      return value && (value as FileList)[0] !== undefined;
     })
     .required('Please upload image'),
-
-  // image: yup
-  //   .mixed()
-  //   .required('You must select an image')
-  //   .test('fileFormat', 'Invalid file format', (value) => {
-  //     if(value &&
-  //       (value as FileList)[0] &&
-  //       ['image/jpeg', 'image/png'].includes((value as FileList)[0].type);
-  //   })
-  //   .test(
-  //     'fileSize',
-  //     'File is too big',
-  //     (value) =>
-  //       value &&
-  //       (value as FileList)[0] &&
-  //       (value as FileList)[0].size <= 200 * 200
-  //   )
-  //   .required('File no choose'),
-
-  // image: yup
-  //   .mixed<FileList>()
-  //   .required('You need to provide a file')
-  //   .test('fileSize', 'File size must be less than 3MB', (value) => {
-  //     if (value && value[0] && value[0].size) {
-  //       return value[0].size <= 3145728;
-  //     }
-  //     return true;
-  //   })
-  //   // .test(
-  //   //   'type',
-  //   //   'Only JPEG, BMP, PNG, PDF, and DOC files are allowed',
-  //   //   (value) => {
-  //   //     return (
-  //   //       value &&
-  //   //       value[0] &&
-  //   //       (value[0].type === 'image/jpeg' ||
-  //   //         value[0].type === 'image/bmp' ||
-  //   //         value[0].type === 'image/png' ||
-  //   //         value[0].type === 'application/pdf' ||
-  //   //         value[0].type === 'application/msword')
-  //   //     );
-  //   //   }
-  //   // )
-  //   .test('fileFormat', 'Only JPEG and PNG files are allowed', (value) => {
-  //     if (value && value[0] && value[0].type) {
-  //       const supportedFormats = ['image/jpeg', 'image/png'];
-  //       return supportedFormats.includes(value[0].type);
-  //     }
-  //     return true;
-  //   }),
 
   termsAndConditions: yup
     .string()
