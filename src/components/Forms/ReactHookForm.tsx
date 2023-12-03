@@ -3,13 +3,12 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
 import { useEffect, useState } from 'react';
-import { setFormData, IFormData } from '../store/formDataSlice';
-import { AppDispatch } from '../store/store';
-import readFile from '../utils/fileReader';
-import validationSchema from '../utils/validation';
-import './ErrorMessage/ErrorMessge.css';
-import ErrorMessage from './ErrorMessage/ErrorMessage';
-import CountryAutocomplete from './CountryAutocomplete/CountryAutocomplete';
+import { setFormData, IFormData } from '../../store/formDataSlice';
+import { AppDispatch } from '../../store/store';
+import readFile from '../../utils/fileReader';
+import validationSchema from '../../utils/validation';
+import ErrorMessage from '../ErrorMessage/ErrorMessage';
+import CountryAutocomplete from '../CountryAutocomplete/CountryAutocomplete';
 
 export default function ReactHookForm() {
   const {
@@ -58,15 +57,15 @@ export default function ReactHookForm() {
   return (
     <>
       <form noValidate className="form" onSubmit={handleSubmit(onSubmit)}>
-        <h3>React Hook Form</h3>
+        <h3 className="form__heading">React Hook Form</h3>
         <label className="label-text-input" htmlFor="name">
           <span>Name</span>
           <input
-            className="text-input"
+            className={`text-input ${errors.name && 'invalid'}`}
             type="text"
             {...register('name')}
             id="name"
-            placeholder="Enter your name"
+            placeholder="Name"
           />
           <ErrorMessage message={errors.name?.message} />
         </label>
@@ -74,7 +73,7 @@ export default function ReactHookForm() {
         <label className="label-text-input" htmlFor="age">
           <span>Age</span>
           <input
-            className="text-input"
+            className={`text-input ${errors.age && 'invalid'}`}
             type="number"
             {...register('age')}
             id="age"
@@ -86,7 +85,7 @@ export default function ReactHookForm() {
         <label className="label-text-input" htmlFor="email">
           <span>E-mail</span>
           <input
-            className="text-input"
+            className={`text-input ${errors.email && 'invalid'}`}
             type="email"
             {...register('email')}
             id="email"
@@ -98,7 +97,7 @@ export default function ReactHookForm() {
         <label className="label-text-input" htmlFor="password">
           <span>Password</span>
           <input
-            className="text-input"
+            className={`text-input ${errors.password && 'invalid'}`}
             type="password"
             {...register('password')}
             id="password"
@@ -117,10 +116,10 @@ export default function ReactHookForm() {
         <label className="label-text-input" htmlFor="confirm-password">
           <span>Confirm password</span>
           <input
-            className="text-input"
+            className={`text-input ${errors.confirmPassword && 'invalid'}`}
             type="password"
             {...register('confirmPassword')}
-            placeholder="confirm-password"
+            placeholder="confirm password"
             id="confirm-password"
           />
           <ErrorMessage message={errors.confirmPassword?.message} />
@@ -159,9 +158,9 @@ export default function ReactHookForm() {
           countryInput={
             <input
               {...register('country')}
-              className="text-input"
+              className={`text-input ${errors.country && 'invalid'}`}
               type="text"
-              placeholder="country"
+              placeholder="Country"
             />
           }
         />

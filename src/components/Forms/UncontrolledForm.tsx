@@ -7,8 +7,8 @@ import CountryAutocomplete from '../CountryAutocomplete/CountryAutocomplete';
 import ErrorMessage from '../ErrorMessage/ErrorMessage';
 import readFile from '../../utils/fileReader';
 import { AppDispatch } from '../../store/store';
-import './UncontrolledForm.css';
 import { IFormData, setFormData } from '../../store/formDataSlice';
+import './Form.css';
 
 export default function UncontrolledForm() {
   const [errors, setErrors] = useState<ValidationError[]>([]);
@@ -88,16 +88,18 @@ export default function UncontrolledForm() {
   return (
     <>
       <form noValidate className="form" onSubmit={handleSubmit}>
-        <h3>Uncontrolled Form</h3>
+        <h3 className="form__heading">Uncontrolled Form</h3>
         <label className="label-text-input" htmlFor="name">
           <span>Name</span>
           <input
             ref={nameRef}
-            className="text-input"
+            className={`text-input ${
+              errors.some((error) => error.path === 'name') && 'invalid'
+            }`}
             type="text"
             name="name"
             id="name"
-            placeholder="Enter your name"
+            placeholder="Name"
           />
           <ErrorMessage errors={errors} name="name" />
         </label>
@@ -105,7 +107,9 @@ export default function UncontrolledForm() {
           <span>Age</span>
           <input
             ref={ageRef}
-            className="text-input"
+            className={`text-input ${
+              errors.some((error) => error.path === 'age') && 'invalid'
+            }`}
             type="number"
             name="age"
             id="age"
@@ -117,7 +121,9 @@ export default function UncontrolledForm() {
           <span>E-mail</span>
           <input
             ref={emailRef}
-            className="text-input"
+            className={`text-input ${
+              errors.some((error) => error.path === 'email') && 'invalid'
+            }`}
             type="email"
             name="email"
             id="email"
@@ -129,7 +135,9 @@ export default function UncontrolledForm() {
           <span>Password</span>
           <input
             ref={passwordRef}
-            className="text-input"
+            className={`text-input ${
+              errors.some((error) => error.path === 'password') && 'invalid'
+            }`}
             type="password"
             name="password"
             id="password"
@@ -148,11 +156,14 @@ export default function UncontrolledForm() {
           <span>Confirm password</span>
           <input
             ref={confirmPasswordRef}
-            className="text-input"
+            className={`text-input ${
+              errors.some((error) => error.path === 'confirmPassword') &&
+              'invalid'
+            }`}
             type="password"
             name="confirm-password"
             id="confirm-password"
-            placeholder="confirm-password"
+            placeholder="confirm password"
           />
           <ErrorMessage errors={errors} name="confirmPassword" />
         </label>
@@ -188,9 +199,11 @@ export default function UncontrolledForm() {
           countryInput={
             <input
               ref={countryRef}
-              className="text-input"
+              className={`text-input ${
+                errors.some((error) => error.path === 'country') && 'invalid'
+              }`}
               type="text"
-              placeholder="country"
+              placeholder="Country"
               name="country"
             />
           }
