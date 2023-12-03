@@ -3,6 +3,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useDispatch } from 'react-redux';
 import { useForm } from 'react-hook-form';
+import { useEffect, useState } from 'react';
 import { setFormData, IFormData } from '../store/formDataSlice';
 import { AppDispatch } from '../store/store';
 import readFile from '../utils/fileReader';
@@ -15,8 +16,28 @@ export default function ReactHookForm() {
   const {
     register,
     handleSubmit,
+    watch,
     formState: { errors, isValid },
   } = useForm({ resolver: yupResolver(validationSchema), mode: 'all' });
+
+  const [passwordStrength, setPasswordStrength] = useState('');
+
+  const handlePasswordChange = () => {
+    const password = watch('password');
+
+    if (password.length >= 8) {
+      setPasswordStrength('Strong');
+    } else if (password.length >= 6) {
+      setPasswordStrength('Moderate');
+    } else if (password.length) {
+      setPasswordStrength('Weak');
+    }
+  };
+
+  // Используйте useEffect для отслеживания изменений значения поля пароля
+  useEffect(() => {
+    handlePasswordChange();
+  }, [watch('password')]); //
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -84,6 +105,7 @@ export default function ReactHookForm() {
             {...register('password')}
             placeholder="password"
           />
+          {passwordStrength && <div>Password Strength: {passwordStrength}</div>}
           <ErrorMessage message={errors.password?.message} />
         </label>
 
@@ -105,7 +127,8 @@ export default function ReactHookForm() {
               className="input-radio"
               type="radio"
               id="male"
-              {...register('gender')}
+              value="male"
+              {...register('gender', { value: 'male' })}
             />
             Male
           </label>
@@ -115,7 +138,8 @@ export default function ReactHookForm() {
               className="input-radio"
               type="radio"
               id="female"
-              {...register('gender')}
+              value="female"
+              {...register('gender', { value: 'female' })}
             />
             Female
           </label>
