@@ -20,6 +20,11 @@
   font-size: 20px;
 }
 
+.tiles__text {
+  padding: 10px;
+  font-size: 20px;
+}
+
 img {
   height: 120px;
   width: 120px;

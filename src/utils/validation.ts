@@ -63,7 +63,7 @@ const validationSchema = yup.object().shape({
     .test('isRequired', 'Please upload image', (value) => {
       return value && (value as FileList)[0] !== undefined;
     })
-    .required('Please upload image'),
+    .required('Please, upload image'),
 
   termsAndConditions: yup
     .string()
